@@ -1,31 +1,56 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import { HomeStackNavigator, ProfileStackNavigator } from "./StackNavigator";
+import { Ionicons, AntDesign, Entypo } from '@expo/vector-icons';
+import { HomeStackNavigator, ProfileStackNavigator, CheckInStackNavigator, ShopStackNavigator } from "./StackNavigator";
 
 const Tab = createBottomTabNavigator();
 
-
 const BottomNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        if (route.name === 'Home') {
+          return (
+            <Ionicons
+              name={ focused ? 'home' : 'home-outline' }
+              size={size}
+              color={color}
+            />
+          );
+        } else if (route.name === 'Shop') {
+          return (
+            <Entypo
+              name={ focused ? 'shop' : 'shop' }
+              size={ size }
+              color={ color }
+            />
+          );
+        } else if (route.name === 'Check In') {
+          return (
+            <Ionicons
+              name={ focused ? 'scan' : 'scan-outline' }
+              size={ size }
+              color={ color }
+            />
+          );
+        } else if (route.name === 'Profile') {
+          return (
+            <AntDesign
+              name={ focused ? 'user' : 'user' }
+              size={ size }
+              color={ color }
+              />
+          );
+        }
+      }
+      })
+      }>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
-      <Tab.Screen name="Shop" component={HomeStackNavigator}/>
-      <Tab.Screen name="Scan" component={HomeStackNavigator}/>
+      <Tab.Screen name="Shop" component={ShopStackNavigator}/>
+      <Tab.Screen name="Check In" component={CheckInStackNavigator}/>
       <Tab.Screen name="Profile" component={ProfileStackNavigator} />
     </Tab.Navigator>
   );
 };
 
-const ProfileNavigator = () => {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Profile" component={ProfileStackNavigator} />
-      <Tab.Screen name="Home" component={HomeStackNavigator} />
-      <Tab.Screen name="Shop" component={HomeStackNavigator}/>
-      <Tab.Screen name="Scan" component={HomeStackNavigator}/>
-    </Tab.Navigator>
-  );
-};
-
-export { BottomNavigator, ProfileNavigator };
+export { BottomNavigator };

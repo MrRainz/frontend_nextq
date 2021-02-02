@@ -1,15 +1,15 @@
-import styles from '../styles.js';
+import styles from '../../styles.js';
 import React from 'react';
 import { Text, View, Button } from 'react-native';
 import 'react-native-gesture-handler';
 
-export default function Homepage({navigation}) {
+export default function Checkin({navigation}) {
     return (
       <View style={styles.container}>
-      <Text>Homepage</Text>
+      <Text>Check In</Text>
       <Button
-        title="Go to Profilepage"
-        onPress={() => navigation.navigate('Profile')}
+        title="Check In"
+        onPress={() => navigation.navigate('Camera')}
       />
       </View>
     );
