@@ -5,10 +5,10 @@ import { BottomNavigator } from "./BottomNavigator.js";
 
 const Drawer = createDrawerNavigator();
 
-const DrawerNavigator = () => {
+const DrawerNavigator = ({loggedIn, setLoggedIn}) => {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={BottomNavigator} />
+      <Drawer.Screen name="Home" component={BottomNavigator} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
     </Drawer.Navigator>
   );
 }

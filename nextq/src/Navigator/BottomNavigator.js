@@ -5,7 +5,7 @@ import { HomeStackNavigator, ProfileStackNavigator, CheckInStackNavigator, ShopS
 
 const Tab = createBottomTabNavigator();
 
-const BottomNavigator = () => {
+const BottomNavigator = ({loggedIn, setLoggedIn}) => {
   return (
     <Tab.Navigator screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
@@ -43,12 +43,11 @@ const BottomNavigator = () => {
           );
         }
       }
-      })
-      }>
+    })}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="Shop" component={ShopStackNavigator}/>
       <Tab.Screen name="Check In" component={CheckInStackNavigator}/>
-      <Tab.Screen name="Profile" component={ProfileStackNavigator} />
+      <Tab.Screen name="Profile" component={ProfileStackNavigator} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
     </Tab.Navigator>
   );
 };

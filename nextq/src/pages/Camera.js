@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
     height: qrSize,
   },
   text: {
-      fontSize:20,
-      color:'white',
+    fontSize:20,
+    color:'white',
   },
   entypo: {
     alignSelf:'flex-start',

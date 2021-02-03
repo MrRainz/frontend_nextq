@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'; 
 
-export default function Homepage({navigation}) {
+export default function Welcome({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.image}>
@@ -15,8 +15,8 @@ export default function Homepage({navigation}) {
       <View style={styles.test}>
         <Text style={styles.textstart}> Start </Text>
         <Text style={styles.textdescription}> Dont waste your time queuing! </Text>
-        <TouchableOpacity style={styles.power} onPress={() => navigation.navigate('Check In')}>
-        <Ionicons name="power" size={125} color="black"/>
+        <TouchableOpacity onPress={() => navigation.navigate('Check In')}>
+        <Ionicons name="power" size={125} color="black" />
         </TouchableOpacity>
       </View>
       </View>
@@ -59,14 +59,5 @@ const styles = StyleSheet.create({
   textdescription: {
     fontSize:20,
     color:'black'
-  },
-  power: {
-    backgroundColor:'transparent',
-    shadowOffset: {
-      width: 5,
-      height: 5
-    },
-    shadowRadius: 6,
-    shadowOpacity: 0.2,
   }
 })
