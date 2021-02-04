@@ -1,16 +1,18 @@
 // import styles from '../../styles.js';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AntDesign, FontAwesome } from '@expo/vector-icons'; 
+import { Auth } from '../components/context.js';
 
 export default function Signin({navigation}) {
     // NEED TO REDO TO SUIT OUR APP
     const [username, setusername]= useState("")
     const [password, setpassword]= useState("")
 
+    const { setTrue } = useContext(Auth);
 
     //Testing Sign in API
     const handleSignIn = () => {
@@ -28,6 +30,8 @@ export default function Signin({navigation}) {
             const jwt = result.data.auth_token
             console.log(jwt)
             AsyncStorage.setItem('jwt', result.data.auth_token)
+            setTrue()
+            navigation.navigate('Profile')
         })
         .catch(error => {
             console.log("Error:" ,error)

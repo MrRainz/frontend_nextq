@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'; 
+import { Auth } from '../components/context.js';
 
 export default function Homepage({navigation}) {
+
+  const { loggedIn } = useContext(Auth);
+
   return (
     <View style={styles.container}>
       <View style={styles.image}>
