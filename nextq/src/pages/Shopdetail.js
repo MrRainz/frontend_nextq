@@ -2,10 +2,10 @@ import React from 'react';
 import {StyleSheet, Text, View } from 'react-native';
 import 'react-native-gesture-handler';
 
-export default function History() {
+export default function Shopdetail() {
     return (
       <View style={styles.container}>
-        <Text>History</Text>
+        <Text>Shop Detail</Text>
       </View>
     );
   }

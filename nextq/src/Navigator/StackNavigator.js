@@ -9,6 +9,7 @@ import Home from '../pages/Homepage.js';
 import Checkin from '../pages/Checkinpage.js';
 import onCamera from "../pages/Camera.js";
 import Shoppage from '../pages/Shoppage.js';
+import Shopdetail from "../pages/Shopdetail.js";
 import Signup from "../pages/SignUpForm.js";
 import Signin from "../pages/SignInForm.js";
 import History from "../pages/History.js";
@@ -29,8 +30,17 @@ const ShopStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Shop" component={Shoppage} options={{ title: <Entypo name="shop" size={18} color="black"> Shop </Entypo> }}/>
+      <Stack.Screen name="Shopdetail" component={Shopdetail} />
     </Stack.Navigator>
   )
+}
+
+const ShopdetailStackNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Shopdetail" component={Shopdetail} />
+    </Stack.Navigator>
+  );
 }
 
 const CheckInStackNavigator = () => {
@@ -60,4 +70,4 @@ const HistoryStackNavigator = () => {
   )
 }
 
-export { HomeStackNavigator, ShopStackNavigator, CheckInStackNavigator, ProfileStackNavigator, HistoryStackNavigator };
+export { HomeStackNavigator, ShopStackNavigator, ShopdetailStackNavigator, CheckInStackNavigator, ProfileStackNavigator, HistoryStackNavigator };

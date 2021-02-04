@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderRadius:5,
         width: 272,
-        height: 55
+        height: 55,
+        paddingLeft: 10,
     },
     signup: {
         flex:0.1,
