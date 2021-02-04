@@ -1,4 +1,3 @@
-// import styles from '../../styles.js';
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';

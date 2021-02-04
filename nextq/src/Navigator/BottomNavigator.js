@@ -1,11 +1,11 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons, AntDesign, Entypo } from '@expo/vector-icons';
-import { HomeStackNavigator, ProfileStackNavigator, CheckInStackNavigator, ShopStackNavigator } from "./StackNavigator";
+import { HomeStackNavigator, ProfileStackNavigator, CheckInStackNavigator, ShopStackNavigator, HistoryStackNavigator } from "./StackNavigator";
 
 const Tab = createBottomTabNavigator();
 
-const BottomNavigator = ({loggedIn, setLoggedIn}) => {
+const BottomNavigator = () => {
   return (
     <Tab.Navigator screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
@@ -41,13 +41,22 @@ const BottomNavigator = ({loggedIn, setLoggedIn}) => {
               color={ color }
               />
           );
+        } else if (route.name === 'History') {
+          return (
+            <AntDesign
+              name={ focused ? 'user' : 'user' }
+              size={ size }
+              color={ color }
+              />
+          );
         }
       }
     })}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="Shop" component={ShopStackNavigator}/>
       <Tab.Screen name="Check In" component={CheckInStackNavigator}/>
-      <Tab.Screen name="Profile" component={ProfileStackNavigator} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      <Tab.Screen name="Profile" component={ProfileStackNavigator}/>
+      <Tab.Screen name="History" component={HistoryStackNavigator}/>
     </Tab.Navigator>
   );
 };

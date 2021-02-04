@@ -1,12 +1,12 @@
 import styles from '../../styles.js';
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View } from 'react-native';
 import 'react-native-gesture-handler';
 
-export default function History({navigation}) {
+export default function History() {
     return (
       <View style={styles.container}>
-      <Text>History</Text>
+        <Text>History</Text>
       </View>
     );
   }

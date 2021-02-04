@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import { AsyncStorage } from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 
-import DrawerNavigator from './src/Navigator/DrawerNavigator.js'
+import BottomNavigator from './src/Navigator/BottomNavigator.js'
 
 export default function App() {
-  
+  const [loggedIn, setLoggedIn] = useState(false)
 
   return (
     <NavigationContainer>
-      <DrawerNavigator/>
+      <BottomNavigator/>
     </NavigationContainer>
   );
 }

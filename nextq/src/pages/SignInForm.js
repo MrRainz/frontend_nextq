@@ -4,35 +4,13 @@ import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'rea
 import 'react-native-gesture-handler';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
-
-
 import { AntDesign, FontAwesome } from '@expo/vector-icons'; 
 
-export default function Signin({navigation, route}) {
-    
-    const [username,setusername]= useState("")
-    const [password,setpassword]= useState("")
-    const { loggedIn } = route.params;
-    const { setLoggedIn } = route.params;
-    
-    const handleLogout = () => {
-        AsyncStorage.removeItem('jwt')
-        setLoggedIn(false)
-    }
+export default function Signin({navigation}) {
+    // NEED TO REDO TO SUIT OUR APP
+    const [username, setusername]= useState("")
+    const [password, setpassword]= useState("")
 
-    console.log(loggedIn)
-    console.log(setLoggedIn)
-
-    AsyncStorage.getItem('jwt').then((result) => {
-        if (result == null) {
-            setLoggedIn(false)
-        }
-        else {
-            setLoggedIn(true)
-        }
-    })
-
-    console.log(loggedIn)
 
     //Testing Sign in API
     const handleSignIn = () => {
@@ -50,7 +28,6 @@ export default function Signin({navigation, route}) {
             const jwt = result.data.auth_token
             console.log(jwt)
             AsyncStorage.setItem('jwt', result.data.auth_token)
-            setLoggedIn(true)
         })
         .catch(error => {
             console.log("Error:" ,error)

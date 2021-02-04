@@ -6,6 +6,7 @@ import axios from 'axios';
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
 
 export default function Signup({navigation}) {
+    // NEED TO REDO TO SUIT OUR APP
     const [username,setusername]=useState("");
     const [password,setpassword]=useState("")
     const [email,setemail]=useState("")

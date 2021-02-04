@@ -6,15 +6,11 @@ import 'react-native-gesture-handler';
 export default function Checkin({navigation}) {
   return (
     <View style={styles.container}>
-      
       <View style={styles.card}>
         <View style={styles.cardtext}>
           <Text style={styles.user}> User </Text>
           <Text style={styles.mobile}> Mobile:123123 </Text>
         </View>
-        <TouchableOpacity style={styles.historybutton} onPress={() => navigation.navigate('History')}>
-          <Text style={styles.historytext}> History </Text>
-        </TouchableOpacity>
       </View>
       <View style={styles.qrcode}>
         <MaterialCommunityIcons name="qrcode-scan" size={200} color="black" />
@@ -66,18 +62,6 @@ const styles = StyleSheet.create({
   qrcode: {
     flex:0.4,
     justifyContent:'center'
-  },
-  historybutton: {
-    justifyContent:'center',
-    alignItems:'center',
-    width: 100,
-    height: 30,
-    borderRadius:50,
-    backgroundColor: 'orange'
-  },
-  historytext: {
-    color:'white',
-    fontSize:18
   },
   button: {
     justifyContent:'center',

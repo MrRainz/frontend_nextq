@@ -1,8 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import 'react-native-gesture-handler';
 import { createStackNavigator } from "@react-navigation/stack";
-import { DrawerActions } from '@react-navigation/native';
-import { Button } from 'react-native';
 
 import { Ionicons, AntDesign, Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -14,20 +12,15 @@ import Shoppage from '../pages/Shoppage.js';
 import Signup from "../pages/SignUpForm.js";
 import Signin from "../pages/SignInForm.js";
 import History from "../pages/History.js";
-import Welcome from "../pages/Welcome.js";
 
 const Stack = createStackNavigator();
 
-const HomeStackNavigator = ({navigation}) => {
+const HomeStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={Home} options={{ 
-          title: <Ionicons name="home" size={18} color="black"> Home </Ionicons>,
-          headerLeft: () => (
-            <Button onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())} title="Nav"/>
-            ),
-          }}/>
-      <Stack.Screen name="Profile" component={Profilepage} options={{ title: <AntDesign name="profile" size={18} color="black"> Profile </AntDesign> }} />
+          title: <Ionicons name="home" size={18} color="black"> Home </Ionicons>
+      }}/>
     </Stack.Navigator>
   );
 }
@@ -40,12 +33,11 @@ const ShopStackNavigator = () => {
   )
 }
 
-const CheckInStackNavigator =() => {
+const CheckInStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Check In" component={Checkin} options={{ title: <Ionicons name="scan" size={18} color="black"> Check In </Ionicons> }}/>
-      <Stack.Screen name="Camera" component={onCamera} options={{ title: <Entypo name="camera" size={18} color="black"> Camera </Entypo> }}/>
-      <Stack.Screen name="History" component={History} options={{ title: <MaterialCommunityIcons name="history" size={18} color="black"> History </MaterialCommunityIcons> }}/>
+      <Stack.Screen name="Camera" component={onCamera} options={{ title: <Entypo name="camera" size={18} color="black"> Camera </Entypo> }}/>      
     </Stack.Navigator>
   );
 }
@@ -60,4 +52,12 @@ const ProfileStackNavigator = () => {
   );
 }
 
-export { HomeStackNavigator, ShopStackNavigator, CheckInStackNavigator, ProfileStackNavigator };
+const HistoryStackNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="History" component={History} options={{ title: <MaterialCommunityIcons name="history" size={18} color="black"> History </MaterialCommunityIcons> }}/>
+    </Stack.Navigator>
+  )
+}
+
+export { HomeStackNavigator, ShopStackNavigator, CheckInStackNavigator, ProfileStackNavigator, HistoryStackNavigator };

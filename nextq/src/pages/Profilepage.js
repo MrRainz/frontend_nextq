@@ -15,14 +15,21 @@ export default function Profilepage({navigation}) {
     else {
         setLoggedIn(true)
     }
-})
+  })
+
+  const handleLogout = () => {
+    AsyncStorage.removeItem('jwt')
+  }
+
     return (
       <View style={styles.container}>
       <Text>Profile Page</Text>
-      <Button title="Sign Up"
-        onPress={() => navigation.navigate('Sign Up', { loggedIn: {loggedIn}, setLoggedIn: {setLoggedIn} })}/>
+      <Button title="Sign Up" //Need to move to new page
+        onPress={() => navigation.navigate('Sign Up')}/>
       <Button title="Sign In"
-        onPress={() => navigation.navigate('Sign In', { loggedIn: {loggedIn}, setLoggedIn: {setLoggedIn} })} />
+        onPress={() => navigation.navigate('Sign In')} />
+      <Button title="Log Out"
+        onPress={handleLogout} />
       </View>
     );
   }
