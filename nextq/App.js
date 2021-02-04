@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { BottomNavigator } from './src/Navigator/BottomNavigator.js'
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
+  //const [loggedIn, setLoggedIn] = useState(false)
 
   return (
     <NavigationContainer>
