@@ -61,4 +61,4 @@ const BottomNavigator = () => {
   );
 };
 
-export { BottomNavigator };
+export { BottomNavigator } 

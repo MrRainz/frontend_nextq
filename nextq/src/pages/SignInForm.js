@@ -52,7 +52,6 @@ export default function Signin({navigation}) {
                     <Text style={styles.textsignup}> Sign up </Text>
                 </TouchableOpacity>
             </View>
-            <Button title="logout" onPress={handleLogout}/>
         </View>
     );
 }
