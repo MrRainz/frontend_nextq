@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import { StyleSheet, Text, View, Button, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, View, Button, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { Auth } from '../components/context.js';
@@ -66,7 +66,7 @@ export default function Profilepage({navigation}) {
       <View style={styles.notificationContainer}>
         <Text style={styles.notificationText}>Welcome back !</Text>
         <Text style={styles.notificationBodyText}>Please sign in to your account </Text>
-      { loggedIn 
+        { loggedIn 
       ? <TouchableOpacity style={styles.button} title="Log Out" onPress={handleLogout} >
           <FontAwesome name="sign-out" size={24} color="black" />
           <Text style={styles.buttontext}> Sign Out </Text>
@@ -82,8 +82,7 @@ export default function Profilepage({navigation}) {
               <FontAwesome name="sign-in" size={24} color="black"/>
               <Text style={styles.buttontext}> Sign In </Text>
           </TouchableOpacity>
-        </View>
-        }
+          </View> }
       </View>
       } 
     </View>
@@ -203,5 +202,28 @@ const styles=StyleSheet.create({
     paddingBottom: 30,
     fontFamily: "Helvetica",
     fontSize: 20
+  },
+  buttonplacement: {
+    flexDirection:'row',
+  },
+  button: {
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    margin:5,
+    width: 125,
+    height: 46,
+    borderRadius:50,
+    shadowOffset: {
+        width: 5,
+        height: 5
+      },
+    shadowRadius: 6,
+    shadowOpacity: 0.2,
+    backgroundColor: 'orange'
+  },
+  buttontext: {
+    fontSize: 20,
+    color:'white'
   }
 })
