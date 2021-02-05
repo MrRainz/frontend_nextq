@@ -2,9 +2,9 @@ import React, { useMemo, useState } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
-import { BottomNavigator } from './src/Navigator/BottomNavigator.js'
+import { BottomNavigator } from './src/Navigator/BottomNavigator.js';
 import { Auth } from './src/components/context.js';
-
+import { SignInStackNavigator } from './src/Navigator/StackNavigator.js';
 // import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default function App() {
@@ -34,7 +34,9 @@ export default function App() {
     <Auth.Provider value={setLoggedState}>
       {/* <RootSiblingParent> */}
         <NavigationContainer>
+          {loggedIn ?
           <BottomNavigator/>
+          :<SignInStackNavigator/>}
         </NavigationContainer>
       {/* </RootSiblingParent> */}
     </Auth.Provider>

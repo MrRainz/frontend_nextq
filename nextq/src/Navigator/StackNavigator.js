@@ -17,8 +17,12 @@ const Stack = createStackNavigator();
 
 const HomeStackNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} options={{ title: <Ionicons name="home" size={18} color="black"> Home </Ionicons> }} />
+    <Stack.Navigator screenOptions={{
+      headerStyle:{
+        backgroundColor:'lightgrey'
+      }
+    }}>
+      <Stack.Screen name="Home" component={Home} headerStyle={{backgroundColor:'grey'}} options={{ title: <Ionicons name="home" size={18} color="black"> Home </Ionicons> }} />
       <Stack.Screen name="Sign In" component={Signin} options={{ title: <FontAwesome name="sign-in" size={18} color="black"> Sign In </FontAwesome> }} />
       <Stack.Screen name="Sign Up" component={Signup} options={{ title: <AntDesign name="adduser" size={18} color="black"> Sign Up </AntDesign> }} />
     </Stack.Navigator>
@@ -27,7 +31,11 @@ const HomeStackNavigator = () => {
 
 const ShopStackNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerStyle:{
+        backgroundColor:'lightgrey'
+      }
+    }}>
       <Stack.Screen name="Shops" component={Shoppage} options={{ title: <Entypo name="shop" size={18} color="black"> Shops </Entypo> }}/>
       <Stack.Screen name="Shop" component={Shopdetail} options={{ title: <Entypo name="shop" size={18} color="black"> Shop </Entypo> }} />
     </Stack.Navigator>
@@ -36,7 +44,11 @@ const ShopStackNavigator = () => {
 
 const CheckInStackNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerStyle:{
+        backgroundColor:'lightgrey'
+      }
+    }}>
       <Stack.Screen name="Scan" component={Checkin} options={{ title: <Ionicons name="scan" size={18} color="black"> Scan </Ionicons> }} />
       <Stack.Screen name="Camera" component={onCamera} options={{ title: <Entypo name="camera" size={18} color="black"> Camera </Entypo> }} />   
       <Stack.Screen name="Sign In" component={Signin} options={{ title: <FontAwesome name="sign-in" size={18} color="black"> Sign In </FontAwesome> }} />   
@@ -46,7 +58,11 @@ const CheckInStackNavigator = () => {
 
 const ProfileStackNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerStyle:{
+        backgroundColor:'lightgrey'
+      }
+    }}>
       <Stack.Screen name="Profile" component={Profilepage} options={{ title: <AntDesign name="user" size={18} color="black"> Profile </AntDesign> }} />
       <Stack.Screen name="Sign Up" component={Signup} options={{ title: <AntDesign name="adduser" size={18} color="black"> Sign Up </AntDesign> }} />
       <Stack.Screen name="Sign In" component={Signin} options={{ title: <FontAwesome name="sign-in" size={18} color="black"> Sign In </FontAwesome> }} />
@@ -56,7 +72,11 @@ const ProfileStackNavigator = () => {
 
 const HistoryStackNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerStyle:{
+        backgroundColor:'lightgrey'
+      }
+    }}>
       <Stack.Screen name="History" component={History} options={{ title: <MaterialCommunityIcons name="history" size={18} color="black"> History </MaterialCommunityIcons> }} />
     </Stack.Navigator>
   )
@@ -64,7 +84,11 @@ const HistoryStackNavigator = () => {
 
 const SignInStackNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerStyle:{
+        backgroundColor:'lightgrey'
+      }
+    }}>
       <Stack.Screen name="Home" component={Home} options={{ headerShown: false, title: <Ionicons name="home" size={18} color="black"> Home </Ionicons> }} />
       <Stack.Screen name="Sign In" component={Signin} options={{ headerShown: false, title: <FontAwesome name="sign-in" size={18} color="black"> Sign In </FontAwesome> }} />
       <Stack.Screen name="Sign Up" component={Signup} options={{ headerShown: false, title: <AntDesign name="adduser" size={18} color="black"> Sign Up </AntDesign> }} />

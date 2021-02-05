@@ -59,7 +59,7 @@ export default function Signin({navigation}) {
     };
 
     return (
-        // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>    
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>    
             <View style={styles.container}>
                 <FontAwesome name="sign-in" size={24} color="black"> Sign In </FontAwesome> 
                 <View style={styles.form}> 
@@ -93,7 +93,7 @@ export default function Signin({navigation}) {
                     </TouchableOpacity>
                 </View>
             </View>
-        // </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
     );
 }
 

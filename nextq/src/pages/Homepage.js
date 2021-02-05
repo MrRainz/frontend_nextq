@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 import { Auth } from '../components/context.js';
 
@@ -8,11 +8,12 @@ export default function Homepage({navigation}) {
   const { loggedIn } = useContext(Auth);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <View style={{flex:1,justifyContent:'center'}}>
       <View style={styles.image}>
-      <Text style={styles.textq}>Q</Text>
-      <Text style={styles.textnextq}>NextQ</Text>
-      <Image style={styles.homeimage} source={require('../Images/home.png')}/>
+        <Text style={styles.textq}>Q</Text>
+        <Text style={styles.textnextq}>NextQ</Text>
+        <Image style={styles.homeimage} source={require('../Images/home.png')}/>
       </View>
       <View style={styles.test}>
         <Text style={styles.textstart}> Start </Text>
@@ -26,6 +27,7 @@ export default function Homepage({navigation}) {
           </TouchableOpacity> }
       </View>
       </View>
+      </ScrollView>
   );
 }
 

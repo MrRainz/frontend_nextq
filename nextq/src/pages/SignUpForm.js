@@ -54,7 +54,7 @@ export default function Signup({navigation}) {
     };
 
     return (
-        // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.container}>
                 <AntDesign name="adduser" size={24} color="black"> Sign Up </AntDesign>
                 <View style={styles.form}>
@@ -106,7 +106,7 @@ export default function Signup({navigation}) {
                     </TouchableOpacity>
                 </View>
             </View>
-        // </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
     );
 }
 
