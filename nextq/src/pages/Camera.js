@@ -33,24 +33,35 @@ export default function onCamera({navigation}) {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={[StyleSheet.absoluteFill, styles.camera]}>
         <View style={styles.view}>
+            <View style={styles.cameratext}>
             { scanned && 
-            <TouchableOpacity style={styles.button} onPress={() => setScanned(false)}>
+              <TouchableOpacity style={styles.button} onPress={() => setScanned(false)}>
                 <Text style={styles.text}>Tap to Scan Again</Text>
-            </TouchableOpacity> }
-            <Image
-                style={styles.qr}
-                source={require('../Images/qr4.png')}
-            />
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Check In')}>
+              </TouchableOpacity> }
+            </View>
+            <View style={styles.cameraqr} >
+              <TouchableOpacity onPress={() => setScanned(false)}>
+                <Image
+                  style={styles.qr}
+                  source={require('../Images/qr4.png')}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.cameratext}>
+              <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
                 <Text style={styles.text}>Cancel</Text>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
         </View>
-        <Entypo style={styles.entypo} name="flashlight" size={32} color="white" onPress={() => {
-                flashsetType(
-                    flashtype === Camera.Constants.FlashMode.off
-                    ? Camera.Constants.FlashMode.torch
-                    : Camera.Constants.FlashMode.off
-            )}}/>
+        <Entypo style={styles.entypo} name="flashlight" size={32} color="white" 
+          onPress={() => {
+            flashsetType(
+              flashtype === Camera.Constants.FlashMode.off
+                ? Camera.Constants.FlashMode.torch
+                : Camera.Constants.FlashMode.off
+            )
+          }}
+        />
       </Camera>
     </View>
   );
@@ -64,22 +75,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   camera: {
-      flex:1,
-  },
-  button: {
-    flex: 0.1,
-    alignItems:'center',
-    color:'white',
-    backgroundColor: 'transparent'
+    flex:1,
   },
   view: {
     flex: 1,
     alignItems:'center',
     justifyContent:'center',
   },
+  cameratext: {
+    flex:0.2, 
+    justifyContent:'center', 
+  },
+  button: {
+    justifyContent:'center'
+  },
+  cameraqr:{
+    flex:0.5,
+    justifyContent:'center'
+  },
   qr: {
-    marginTop: '20%',
-    marginBottom: '20%',
+    backgroundColor:'transparent',
     width: qrSize,
     height: qrSize,
   },

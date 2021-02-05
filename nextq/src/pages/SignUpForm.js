@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
+
+// import Toast from 'react-native-root-toast';
 
 export default function Signup({navigation}) {
     // NEED TO REDO TO SUIT OUR APP
@@ -25,9 +27,29 @@ export default function Signup({navigation}) {
             console.log(result)
             console.log("Success")
             navigation.navigate("Sign In")
+            // Toast.show('Successfully sign up!', {
+            //     duration: Toast.durations.LONG,
+            //     position: 90,
+            //     textColor: 'black',
+            //     backgroundColor: 'green',
+            //     shadow: true,
+            //     animation: true,
+            //     hideOnPress: true,
+            //     delay: 0,
+            // });
         })
         .catch(error => {
             console.log("Error:" ,error)
+            // Toast.show(`${error}`, {
+            //     duration: Toast.durations.LONG,
+            //     position: 90,
+            //     textColor: 'black',
+            //     backgroundColor: 'red',
+            //     shadow: true,
+            //     animation: true,
+            //     hideOnPress: true,
+            //     delay: 0,
+            // });
         })
     };
 

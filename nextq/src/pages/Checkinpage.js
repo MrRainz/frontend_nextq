@@ -11,20 +11,38 @@ export default function Checkin({navigation}) {
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.card}>
-        <View style={styles.cardtext}>
-          <Text style={styles.user}> User </Text>
-          <Text style={styles.mobile}> Mobile:123123 </Text>
-        </View>
+        { loggedIn 
+        ? <View style={styles.cardtext}>
+            <Text style={styles.user}>
+              User
+            </Text>
+            <Text style={styles.mobile}>
+              Mobile:123123
+            </Text>
+          </View>
+        : <View style={styles.cardtext}> 
+            <Text style={styles.welcometext}>
+              Welcome back!
+            </Text>
+            <Text style={styles.descriptiontext}>
+              Please sign in if you are an exisitng user to enjoy the features
+            </Text>
+          </View>
+        }
       </Card>
       <View style={styles.qrcode}>
         <MaterialCommunityIcons name="qrcode-scan" size={200} color="black" />
       </View>
       { loggedIn 
       ? <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Camera')}>
-          <Text style={styles.buttontext}> SCAN </Text>
+          <Text style={styles.buttontext}>
+            SCAN
+          </Text>
         </TouchableOpacity>
       : <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign In')}>
-          <Text style={styles.buttontext}> SCAN </Text>
+          <Text style={styles.buttontext}>
+            SCAN
+          </Text>
         </TouchableOpacity> 
       }
     </View>
@@ -53,19 +71,25 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2
   },
   cardtext: {
-    flex: 1,
     justifyContent:'center',
     width:'100%', 
   },
   user: {
-    flex:0.3,
     fontSize:20,
     textAlign:'center',
   },
   mobile: {
-    flex:0.3,
     fontSize:16,
     textAlign:'center',
+  },
+  welcometext: {
+    fontSize:25,
+    margin:5,
+    textAlign:'center'
+  },
+  descriptiontext: {
+    fontSize:16,
+    textAlign:'center'
   },
   qrcode: {
     flex:0.4,

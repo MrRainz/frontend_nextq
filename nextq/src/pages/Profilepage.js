@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import { StyleSheet, Text, View, Button, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Auth } from '../components/context.js';
+
 // import Toast from 'react-native-root-toast';
 
 
@@ -45,7 +46,7 @@ export default function Profilepage({navigation}) {
             </View>
           </View>
 
-          <Card containerStyle={styles.bottomContainer}>
+          <Card containerStyle={styles.CardBottomContainer}>
             <View style={styles.userDetailBox}>
               <View style={styles.email}>
                 <Text>Email</Text>
@@ -134,12 +135,11 @@ const styles=StyleSheet.create({
     fontSize:15,
     paddingBottom: 30,
   },
-  bottomContainer: {
-    flex: 1,
+  CardBottomContainer: {
     alignItems: "center",
     justifyContent:'center',
     width: 360,
-    height: 450,
+    height: 400,
     borderRadius:50,
     top:50,
     borderWidth:0.25,
