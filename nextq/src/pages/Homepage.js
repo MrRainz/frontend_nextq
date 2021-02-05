@@ -18,7 +18,7 @@ export default function Homepage({navigation}) {
         <Text style={styles.textstart}> Start </Text>
         <Text style={styles.textdescription}> Dont waste your time queuing! </Text>
         { loggedIn 
-        ? <TouchableOpacity style={styles.power} onPress={() => navigation.navigate("Check In")}>
+        ? <TouchableOpacity style={styles.power} onPress={() => navigation.navigate("Scan")}>
           <Ionicons name="power" size={125} color="black"/>
           </TouchableOpacity>
         : <TouchableOpacity style={styles.power} onPress={() => navigation.navigate("Sign In")}>

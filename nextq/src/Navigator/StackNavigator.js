@@ -37,7 +37,7 @@ const ShopStackNavigator = () => {
 const CheckInStackNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Check In" component={Checkin} options={{ title: <Ionicons name="scan" size={18} color="black"> Check In </Ionicons> }} />
+      <Stack.Screen name="Scan" component={Checkin} options={{ title: <Ionicons name="scan" size={18} color="black"> Scan </Ionicons> }} />
       <Stack.Screen name="Camera" component={onCamera} options={{ title: <Entypo name="camera" size={18} color="black"> Camera </Entypo> }} />   
       <Stack.Screen name="Sign In" component={Signin} options={{ title: <FontAwesome name="sign-in" size={18} color="black"> Sign In </FontAwesome> }} />   
     </Stack.Navigator>
@@ -62,4 +62,15 @@ const HistoryStackNavigator = () => {
   )
 }
 
-export { HomeStackNavigator, ShopStackNavigator, CheckInStackNavigator, ProfileStackNavigator, HistoryStackNavigator };
+const SignInStackNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} options={{ headerShown: false, title: <Ionicons name="home" size={18} color="black"> Home </Ionicons> }} />
+      <Stack.Screen name="Sign In" component={Signin} options={{ headerShown: false, title: <FontAwesome name="sign-in" size={18} color="black"> Sign In </FontAwesome> }} />
+      <Stack.Screen name="Sign Up" component={Signup} options={{ headerShown: false, title: <AntDesign name="adduser" size={18} color="black"> Sign Up </AntDesign> }} />
+      <Stack.Screen name="Profile" component={Profilepage} options={{ title: <AntDesign name="user" size={18} color="black"> Profile </AntDesign> }} />
+    </Stack.Navigator>
+  );
+}
+
+export { HomeStackNavigator, ShopStackNavigator, CheckInStackNavigator, ProfileStackNavigator, HistoryStackNavigator, SignInStackNavigator };

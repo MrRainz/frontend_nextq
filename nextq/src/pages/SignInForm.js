@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AntDesign, FontAwesome } from '@expo/vector-icons'; 
@@ -59,25 +59,41 @@ export default function Signin({navigation}) {
     };
 
     return (
-        <View style={styles.container}>
-            <FontAwesome name="sign-in" size={24} color="black"> Sign In </FontAwesome> 
-            <View style={styles.form}> 
-                <AntDesign name="user" size={18} color="black"> Username </AntDesign>
-                <TextInput type="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinput} onChangeText={text => setusername(text)}/>
-                <AntDesign name="lock" size={18} color="black"> Password </AntDesign>
-                <TextInput type="password" name="password" id="password" placeholder="Password" style={styles.textinput} onChangeText={text => setpassword(text)}/>
-            </View >
-            <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-                <FontAwesome name="sign-in" size={24} color="black"/>
-                <Text style={styles.buttontext}> Sign In </Text>
-            </TouchableOpacity>
-            <View style={styles.signup} >
-                <Text>Dont have an account?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
-                    <Text style={styles.textsignup}> Sign Up </Text>
+        // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>    
+            <View style={styles.container}>
+                <FontAwesome name="sign-in" size={24} color="black"> Sign In </FontAwesome> 
+                <View style={styles.form}> 
+                    <AntDesign name="user" size={18} color="black">
+                        Username
+                    </AntDesign>
+                    <View style={styles.textinput}>
+                        <View style={styles.textinputicon}>
+                            <AntDesign name="user" size={18} color="black"/>
+                        </View>
+                        <TextInput clearButtonMode='while-editing' textContentType="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinputflex} onChangeText={text => setusername(text)}/>
+                    </View>
+                    <AntDesign name="lock" size={18} color="black">
+                        Password
+                    </AntDesign>
+                    <View style={styles.textinput}>
+                        <View style={styles.textinputicon}>
+                            <AntDesign name="lock" size={18} color="black"/>
+                        </View>
+                        <TextInput secureTextEntry={true} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" style={styles.textinputflex} onChangeText={text => setpassword(text)}/>
+                    </View>
+                </View >
+                <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+                    <FontAwesome name="sign-in" size={24} color="black"/>
+                    <Text style={styles.buttontext}> Sign In </Text>
                 </TouchableOpacity>
+                <View style={styles.signup} >
+                    <Text>Dont have an account?</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
+                        <Text style={styles.textsignup}> Sign Up </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
+        // </TouchableWithoutFeedback>
     );
 }
 
@@ -115,12 +131,24 @@ const styles = StyleSheet.create({
         fontSize:20
     },
     textinput:{
-        borderColor:'black',
-        borderWidth:1,
+        alignItems:'center',
+        justifyContent:'center',
+        flexDirection:'row',
+        borderColor:'grey',
+        borderWidth:0.5,
         borderRadius:5,
-        width: 272,
+        width: "80%",
         height: 55,
-        paddingLeft: 10,
+        padding: 10,
+    },
+    textinputicon:{
+        flex:0.1, 
+        alignItems:'center'
+    },
+    textinputflex: {
+        flex:1,
+        height:'100%',
+        marginLeft:5,
     },
     signup: {
         flex:0.1,

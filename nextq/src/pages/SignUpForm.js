@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import axios from 'axios';
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
 
@@ -54,29 +54,59 @@ export default function Signup({navigation}) {
     };
 
     return (
-        <View style={styles.container}>
-            <AntDesign name="adduser" size={24} color="black"> Sign Up </AntDesign>
-        <View style={styles.form}>
-            <AntDesign name="user" size={18} color="black"> Username </AntDesign>
-            <TextInput type="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinput} onChangeText={text => setusername(text)}/>
-            <AntDesign name="lock" size={18} color="black"> Password </AntDesign>
-            <TextInput type="password" name="password" id="password" placeholder="Password" value={password} style={styles.textinput} onChangeText={text => setpassword(text)}/>
-            <Feather name="mail" size={18} color="black" > Email </Feather>
-            <TextInput type="email" name="email" id="email" placeholder="Email" value={email} style={styles.textinput} onChangeText={text => setemail(text)}/>
-            <FontAwesome name="mobile" size={18} color="black" > Mobile </FontAwesome>
-            <TextInput type="mobile" name="mobile" id="mobile" placeholder="Mobile" value={mobile} style={styles.textinput} onChangeText={text => setmobile(text)}/>
-        </View>
-            <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-                <AntDesign name="adduser" size={24} color="black"/>
-                <Text style={styles.buttontext}> Sign Up </Text>
-            </TouchableOpacity>
-            <View style={styles.signin} >
-                <Text> Exisiting user? </Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Sign In')}>
-                    <Text style={styles.textsignin}> Sign In </Text>
+        // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.container}>
+                <AntDesign name="adduser" size={24} color="black"> Sign Up </AntDesign>
+                <View style={styles.form}>
+                    <AntDesign name="user" size={18} color="black">
+                        Username 
+                    </AntDesign>
+                    <View style={styles.textinput}>
+                        <View style={styles.textinputicon}>
+                            <AntDesign name="user" size={18} color="black"/>
+                        </View>
+                        <TextInput clearButtonMode='while-editing' textContentType="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinputflex} onChangeText={text => setusername(text)}/>
+                    </View>
+                    <AntDesign name="lock" size={18} color="black">
+                        Password
+                    </AntDesign>
+                    <View style={styles.textinput}>
+                        <View style={styles.textinputicon}>
+                            <AntDesign name="lock" size={18} color="black"/>
+                        </View>
+                        <TextInput secureTextEntry={true} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" value={password} style={styles.textinputflex} onChangeText={text => setpassword(text)}/>
+                    </View>
+                    <Feather name="mail" size={18} color="black" >
+                        Email
+                    </Feather>
+                    <View style={styles.textinput}>
+                        <View style={styles.textinputicon}>
+                            <Feather name="mail" size={18} color="black" />
+                        </View>
+                        <TextInput clearButtonMode='while-editing' textContentType="emailAddress" name="email" id="email" placeholder="Email" value={email} style={styles.textinputflex} onChangeText={text => setemail(text)}/>
+                    </View>
+                    <FontAwesome name="mobile" size={18} color="black" >
+                        Mobile
+                    </FontAwesome>
+                    <View style={styles.textinput}>
+                        <View style={styles.textinputicon}>
+                            <FontAwesome name="mobile" size={18} color="black"/>
+                        </View>
+                        <TextInput clearButtonMode='while-editing' textContentType="telephoneNumber" name="mobile" id="mobile" placeholder="Mobile" value={mobile} style={styles.textinputflex} onChangeText={text => setmobile(text)}/>
+                    </View>
+                </View>
+                <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+                    <AntDesign name="adduser" size={24} color="black"/>
+                    <Text style={styles.buttontext}> Sign Up </Text>
                 </TouchableOpacity>
+                <View style={styles.signin} >
+                    <Text> Exisiting user? </Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Sign In')}>
+                        <Text style={styles.textsignin}> Sign In </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
+        // </TouchableWithoutFeedback>
     );
 }
 
@@ -114,12 +144,24 @@ const styles = StyleSheet.create({
         fontSize:20
     },
     textinput:{
-        borderColor:'black',
-        borderWidth:1,
+        alignItems:'center',
+        justifyContent:'center',
+        flexDirection:'row',
+        borderColor:'grey',
+        borderWidth:0.5,
         borderRadius:5,
-        width: 272,
+        width: "80%",
         height: 55,
-        paddingLeft: 10,
+        padding: 10,
+    },
+    textinputicon:{
+        flex:0.1, 
+        alignItems:'center'
+    },
+    textinputflex: {
+        flex:1,
+        height:'100%',
+        marginLeft:5,
     },
     signin: {
         flex:0.1,

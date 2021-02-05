@@ -29,7 +29,7 @@ const BottomNavigator = () => {
               color={ color }
             />
           );
-        } else if (route.name === 'Check In') {
+        } else if (route.name === 'Scan') {
           return (
             <Ionicons
               name={ focused ? 'scan' : 'scan-outline' }
@@ -58,7 +58,7 @@ const BottomNavigator = () => {
     })}> 
       <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="Shops" component={ShopStackNavigator}/>
-      <Tab.Screen name="Check In" component={CheckInStackNavigator}/>
+      <Tab.Screen name="Scan" component={CheckInStackNavigator}/>
       <Tab.Screen name="Profile" component={ProfileStackNavigator}/>
       { 
       loggedIn 
