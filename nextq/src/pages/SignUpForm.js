@@ -1,9 +1,9 @@
-// import styles from '../../styles.js';
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
-import 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
+
+// import Toast from 'react-native-root-toast';
 
 export default function Signup({navigation}) {
     // NEED TO REDO TO SUIT OUR APP
@@ -26,9 +26,30 @@ export default function Signup({navigation}) {
         .then(result => {
             console.log(result)
             console.log("Success")
+            navigation.navigate("Sign In")
+            // Toast.show('Successfully sign up!', {
+            //     duration: Toast.durations.LONG,
+            //     position: 90,
+            //     textColor: 'black',
+            //     backgroundColor: 'green',
+            //     shadow: true,
+            //     animation: true,
+            //     hideOnPress: true,
+            //     delay: 0,
+            // });
         })
         .catch(error => {
             console.log("Error:" ,error)
+            // Toast.show(`${error}`, {
+            //     duration: Toast.durations.LONG,
+            //     position: 90,
+            //     textColor: 'black',
+            //     backgroundColor: 'red',
+            //     shadow: true,
+            //     animation: true,
+            //     hideOnPress: true,
+            //     delay: 0,
+            // });
         })
     };
 
@@ -46,7 +67,8 @@ export default function Signup({navigation}) {
             <TextInput type="mobile" name="mobile" id="mobile" placeholder="Mobile" value={mobile} style={styles.textinput} onChangeText={text => setmobile(text)}/>
         </View>
             <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-                <Text style={styles.buttontext}>Sign Up</Text>
+                <AntDesign name="adduser" size={24} color="black"/>
+                <Text style={styles.buttontext}> Sign Up </Text>
             </TouchableOpacity>
             <View style={styles.signin} >
                 <Text> Exisiting user? </Text>
@@ -73,6 +95,7 @@ const styles = StyleSheet.create({
         height: "50%"
     },
     button: {
+        flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
         width: 187,
@@ -95,7 +118,8 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderRadius:5,
         width: 272,
-        height: 55
+        height: 55,
+        paddingLeft: 10,
     },
     signin: {
         flex:0.1,

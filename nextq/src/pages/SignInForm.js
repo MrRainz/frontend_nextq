@@ -1,11 +1,11 @@
-// import styles from '../../styles.js';
-import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
-import 'react-native-gesture-handler';
+import React, { useState, useContext } from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AntDesign, FontAwesome } from '@expo/vector-icons'; 
 import { Auth } from '../components/context.js';
+
+// import Toast from 'react-native-root-toast';
 
 export default function Signin({navigation}) {
     // NEED TO REDO TO SUIT OUR APP
@@ -32,9 +32,29 @@ export default function Signin({navigation}) {
             AsyncStorage.setItem('jwt', result.data.auth_token)
             setTrue()
             navigation.navigate('Profile')
+            // Toast.show('Successfully sign in!', {
+            //     duration: Toast.durations.LONG,
+            //     position: 90,
+            //     textColor: 'black',
+            //     backgroundColor: 'green',
+            //     shadow: true,
+            //     animation: true,
+            //     hideOnPress: true,
+            //     delay: 0,
+            // });
         })
         .catch(error => {
             console.log("Error:" ,error)
+            // Toast.show(`${error}`, {
+            //     duration: Toast.durations.LONG,
+            //     position: 90,
+            //     textColor: 'black',
+            //     backgroundColor: 'red',
+            //     shadow: true,
+            //     animation: true,
+            //     hideOnPress: true,
+            //     delay: 0,
+            // });
         })
     };
 
@@ -48,12 +68,13 @@ export default function Signin({navigation}) {
                 <TextInput type="password" name="password" id="password" placeholder="Password" style={styles.textinput} onChangeText={text => setpassword(text)}/>
             </View >
             <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+                <FontAwesome name="sign-in" size={24} color="black"/>
                 <Text style={styles.buttontext}> Sign In </Text>
             </TouchableOpacity>
             <View style={styles.signup} >
                 <Text>Dont have an account?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('Sign Up')}>
-                    <Text style={styles.textsignup}> Sign up </Text>
+                <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
+                    <Text style={styles.textsignup}> Sign Up </Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -75,6 +96,7 @@ const styles = StyleSheet.create({
         height: "50%"
     },
     button: {
+        flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
         width: 187,
@@ -97,7 +119,8 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderRadius:5,
         width: 272,
-        height: 55
+        height: 55,
+        paddingLeft: 10,
     },
     signup: {
         flex:0.1,
