@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons'; 
 import { Auth } from '../components/context.js';
 
@@ -18,9 +17,13 @@ export default function Homepage({navigation}) {
       <View style={styles.test}>
         <Text style={styles.textstart}> Start </Text>
         <Text style={styles.textdescription}> Dont waste your time queuing! </Text>
-        <TouchableOpacity style={styles.power} onPress={() => navigation.navigate('Check In')}>
-        <Ionicons name="power" size={125} color="black"/>
-        </TouchableOpacity>
+        { loggedIn 
+        ? <TouchableOpacity style={styles.power} onPress={() => navigation.navigate("Check In")}>
+          <Ionicons name="power" size={125} color="black"/>
+          </TouchableOpacity>
+        : <TouchableOpacity style={styles.power} onPress={() => navigation.navigate("Sign In")}>
+          <Ionicons name="power" size={125} color="black"/>
+          </TouchableOpacity> }
       </View>
       </View>
   );

@@ -1,7 +1,5 @@
-// import styles from '../../styles.js';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
-import 'react-native-gesture-handler';
 import axios from 'axios';
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
 
@@ -26,6 +24,7 @@ export default function Signup({navigation}) {
         .then(result => {
             console.log(result)
             console.log("Success")
+            navigation.navigate("Sign In")
         })
         .catch(error => {
             console.log("Error:" ,error)
@@ -46,7 +45,8 @@ export default function Signup({navigation}) {
             <TextInput type="mobile" name="mobile" id="mobile" placeholder="Mobile" value={mobile} style={styles.textinput} onChangeText={text => setmobile(text)}/>
         </View>
             <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-                <Text style={styles.buttontext}>Sign Up</Text>
+                <AntDesign name="adduser" size={24} color="black"/>
+                <Text style={styles.buttontext}> Sign Up </Text>
             </TouchableOpacity>
             <View style={styles.signin} >
                 <Text> Exisiting user? </Text>
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
         height: "50%"
     },
     button: {
+        flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
         width: 187,

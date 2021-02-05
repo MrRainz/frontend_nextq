@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons, AntDesign, Entypo } from '@expo/vector-icons';
+import { Ionicons, AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { HomeStackNavigator, ProfileStackNavigator, CheckInStackNavigator, ShopStackNavigator, HistoryStackNavigator } from "./StackNavigator";
+import { Auth } from '../components/context.js';
 
 const Tab = createBottomTabNavigator();
 
 const BottomNavigator = () => {
+
+  const { loggedIn } = useContext(Auth);
+
   return (
     <Tab.Navigator screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size }) => {
@@ -43,20 +47,23 @@ const BottomNavigator = () => {
           );
         } else if (route.name === 'History') {
           return (
-            <AntDesign
-              name={ focused ? 'user' : 'user' }
+            <MaterialCommunityIcons
+              name={ focused ? 'history' : 'history' }
               size={ size }
               color={ color }
               />
           );
         }
       }
-    })}>
+    })}> 
       <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="Shop" component={ShopStackNavigator}/>
       <Tab.Screen name="Check In" component={CheckInStackNavigator}/>
       <Tab.Screen name="Profile" component={ProfileStackNavigator}/>
-      <Tab.Screen name="History" component={HistoryStackNavigator}/>
+      { loggedIn 
+      ? <Tab.Screen name="History" component={HistoryStackNavigator}/> 
+      : null
+      }
     </Tab.Navigator>
   );
 };
