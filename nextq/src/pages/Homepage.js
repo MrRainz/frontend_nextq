@@ -1,37 +1,45 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 import { Auth } from '../components/context.js';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
 
 export default function Homepage({navigation}) {
 
   const { loggedIn } = useContext(Auth);
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={{flex:1,justifyContent:'center'}}>
-      <View style={styles.image}>
-        <Text style={styles.textq}>Q</Text>
-        <Text style={styles.textnextq}>NextQ</Text>
-        <Image style={styles.homeimage} source={require('../Images/home.png')}/>
-      </View>
-      <View style={styles.test}>
-        <Text style={styles.textstart}> Start </Text>
-        <Text style={styles.textdescription}> Dont waste your time queuing! </Text>
-        { loggedIn 
-        ? <TouchableOpacity style={styles.power} onPress={() => navigation.navigate("Scan")}>
-          <Ionicons name="power" size={125} color="black"/>
-          </TouchableOpacity>
-        : <TouchableOpacity style={styles.power} onPress={() => navigation.navigate("Sign In")}>
-          <Ionicons name="power" size={125} color="black"/>
-          </TouchableOpacity> }
-      </View>
-      </View>
+    <SafeAreaView style={styles.safecontainer}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={{flex:1,justifyContent:'center'}}>
+          <View style={styles.image}>
+            <Text style={styles.textq}>Q</Text>
+            <Text style={styles.textnextq}>NextQ</Text>
+            <Image style={styles.homeimage} source={require('../Images/home.png')}/>
+          </View>
+          <View style={styles.test}>
+            <Text style={styles.textstart}> Start </Text>
+            <Text style={styles.textdescription}> Dont waste your time queuing! </Text>
+            { 
+            loggedIn 
+            ? <TouchableOpacity style={styles.power} onPress={() => navigation.navigate("Scan")}>
+                <Ionicons name="power" size={125} color="black"/>
+              </TouchableOpacity>
+            : <TouchableOpacity style={styles.power} onPress={() => navigation.navigate("Sign In")}>
+                <Ionicons name="power" size={125} color="black"/>
+              </TouchableOpacity>
+            }
+          </View>
+        </View>
       </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safecontainer:{
+    flex:1,
+    backgroundColor:'black'
+  },
   container: {
     flex:1,
     backgroundColor: 'white',

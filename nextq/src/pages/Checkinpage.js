@@ -1,55 +1,63 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Card } from 'react-native-elements'
 import { Auth } from '../components/context.js';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { StyleSheet, Text, SafeAreaView, ScrollView, View, TouchableOpacity } from 'react-native';
 
 export default function Checkin({navigation}) {
 
   const { loggedIn } = useContext(Auth);
 
   return (
-    <View style={styles.container}>
-      <Card containerStyle={styles.card}>
-        { loggedIn 
-        ? <View style={styles.cardtext}>
-            <Text style={styles.user}>
-              User
+    <SafeAreaView style={styles.safecontainer}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Card containerStyle={styles.card}>
+          { 
+          loggedIn 
+          ? <View style={styles.cardtext}>
+              <Text style={styles.user}>
+                User
+              </Text>
+              <Text style={styles.mobile}>
+                Mobile:123123
+              </Text>
+            </View>
+          : <View style={styles.cardtext}> 
+              <Text style={styles.welcometext}>
+                Welcome back!
+              </Text>
+              <Text style={styles.descriptiontext}>
+                Please sign in if you are an exisitng user to enjoy the features
+              </Text>
+            </View>
+          }
+        </Card>
+        <View style={styles.qrcode}>
+          <MaterialCommunityIcons name="qrcode-scan" size={150} color="black" />
+        </View>
+        { 
+        loggedIn 
+        ? <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Camera')}>
+            <Text style={styles.buttontext}>
+              SCAN
             </Text>
-            <Text style={styles.mobile}>
-              Mobile:123123
+          </TouchableOpacity>
+        : <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign In')}>
+            <Text style={styles.buttontext}>
+              SCAN
             </Text>
-          </View>
-        : <View style={styles.cardtext}> 
-            <Text style={styles.welcometext}>
-              Welcome back!
-            </Text>
-            <Text style={styles.descriptiontext}>
-              Please sign in if you are an exisitng user to enjoy the features
-            </Text>
-          </View>
+          </TouchableOpacity> 
         }
-      </Card>
-      <View style={styles.qrcode}>
-        <MaterialCommunityIcons name="qrcode-scan" size={200} color="black" />
-      </View>
-      { loggedIn 
-      ? <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Camera')}>
-          <Text style={styles.buttontext}>
-            SCAN
-          </Text>
-        </TouchableOpacity>
-      : <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign In')}>
-          <Text style={styles.buttontext}>
-            SCAN
-          </Text>
-        </TouchableOpacity> 
-      }
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safecontainer: {
+    flex:1,
+    backgroundColor:'black'
+  },
   container: {
     flex:1,
     backgroundColor: '#fff',
@@ -98,8 +106,8 @@ const styles = StyleSheet.create({
   button: {
     justifyContent:'center',
     alignItems:'center',
-    width: 187,
-    height: 46,
+    width: '40%',
+    height: "7.5%",
     borderRadius:50,
     shadowOffset: {
       width: 5,

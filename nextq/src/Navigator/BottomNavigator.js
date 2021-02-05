@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons, AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
-import { HomeStackNavigator, ProfileStackNavigator, CheckInStackNavigator, ShopStackNavigator, HistoryStackNavigator } from "./StackNavigator";
 import { Auth } from '../components/context.js';
+import { Ionicons, AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { HomeStackNavigator, ProfileStackNavigator, CheckInStackNavigator, ShopStackNavigator, HistoryStackNavigator } from "./StackNavigator";
 
 const Tab = createMaterialBottomTabNavigator();
 

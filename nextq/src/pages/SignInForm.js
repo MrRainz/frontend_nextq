@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
-import { AntDesign, FontAwesome } from '@expo/vector-icons'; 
 import { Auth } from '../components/context.js';
+import React, { useState, useContext } from 'react';
+import { AntDesign, FontAwesome } from '@expo/vector-icons'; 
+import AsyncStorage from '@react-native-community/async-storage';
+import { StyleSheet, Text, SafeAreaView, View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 // import Toast from 'react-native-root-toast';
 
@@ -31,7 +31,7 @@ export default function Signin({navigation}) {
             console.log(jwt)
             AsyncStorage.setItem('jwt', result.data.auth_token)
             setTrue()
-            navigation.navigate('Profile')
+            // navigation.navigate('Profile')
             // Toast.show('Successfully sign in!', {
             //     duration: Toast.durations.LONG,
             //     position: 90,
@@ -59,45 +59,51 @@ export default function Signin({navigation}) {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>    
-            <View style={styles.container}>
-                <FontAwesome name="sign-in" size={24} color="black"> Sign In </FontAwesome> 
-                <View style={styles.form}> 
-                    <AntDesign name="user" size={18} color="black">
-                        Username
-                    </AntDesign>
-                    <View style={styles.textinput}>
-                        <View style={styles.textinputicon}>
-                            <AntDesign name="user" size={18} color="black"/>
+        // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <SafeAreaView style={styles.safecontainer}>    
+                <View style={styles.container}>
+                    <FontAwesome name="sign-in" size={24} color="black"> Sign In </FontAwesome> 
+                    <View style={styles.form}> 
+                        <AntDesign name="user" size={18} color="black">
+                            Username
+                        </AntDesign>
+                        <View style={styles.textinput}>
+                            <View style={styles.textinputicon}>
+                                <AntDesign name="user" size={18} color="black"/>
+                            </View>
+                            <TextInput clearButtonMode='while-editing' textContentType="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinputflex} onChangeText={text => setusername(text)}/>
                         </View>
-                        <TextInput clearButtonMode='while-editing' textContentType="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinputflex} onChangeText={text => setusername(text)}/>
-                    </View>
-                    <AntDesign name="lock" size={18} color="black">
-                        Password
-                    </AntDesign>
-                    <View style={styles.textinput}>
-                        <View style={styles.textinputicon}>
-                            <AntDesign name="lock" size={18} color="black"/>
+                        <AntDesign name="lock" size={18} color="black">
+                            Password
+                        </AntDesign>
+                        <View style={styles.textinput}>
+                            <View style={styles.textinputicon}>
+                                <AntDesign name="lock" size={18} color="black"/>
+                            </View>
+                            <TextInput secureTextEntry={true} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" style={styles.textinputflex} onChangeText={text => setpassword(text)}/>
                         </View>
-                        <TextInput secureTextEntry={true} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" style={styles.textinputflex} onChangeText={text => setpassword(text)}/>
-                    </View>
-                </View >
-                <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-                    <FontAwesome name="sign-in" size={24} color="black"/>
-                    <Text style={styles.buttontext}> Sign In </Text>
-                </TouchableOpacity>
-                <View style={styles.signup} >
-                    <Text>Dont have an account?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
-                        <Text style={styles.textsignup}> Sign Up </Text>
+                    </View >
+                    <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+                        <FontAwesome name="sign-in" size={24} color="black"/>
+                        <Text style={styles.buttontext}> Sign In </Text>
                     </TouchableOpacity>
+                    <View style={styles.signup} >
+                        <Text>Dont have an account?</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>
+                            <Text style={styles.textsignup}> Sign Up </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-        </TouchableWithoutFeedback>
+            </SafeAreaView>
+        // </TouchableWithoutFeedback>
     );
 }
 
 const styles = StyleSheet.create({
+    safecontainer: {
+        flex:1,
+        backgroundColor:'black'
+    },
     container:{
         flex:1,
         backgroundColor: '#fff',

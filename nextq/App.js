@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
-import { BottomNavigator } from './src/Navigator/BottomNavigator.js';
+import React, { useMemo, useState } from 'react';
 import { Auth } from './src/components/context.js';
+import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { BottomNavigator } from './src/Navigator/BottomNavigator.js';
 import { SignInStackNavigator } from './src/Navigator/StackNavigator.js';
+
 // import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default function App() {

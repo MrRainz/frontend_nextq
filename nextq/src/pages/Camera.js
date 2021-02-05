@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image} from 'react-native';
 import { Camera } from 'expo-camera';
 import { Entypo } from '@expo/vector-icons';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image} from 'react-native';
 
 export default function onCamera({navigation}) {
+
+  const [scanned, setScanned] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
   const [flashtype, flashsetType] = useState(Camera.Constants.FlashMode.off);
-  const [scanned, setScanned] = useState(false);
 
   useEffect(() => {
     (async () => {

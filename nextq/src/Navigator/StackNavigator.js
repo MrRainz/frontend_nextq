@@ -1,17 +1,16 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-
-import { Ionicons, AntDesign, Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
-
-import Profilepage from "../pages/Profilepage.js";
 import Home from '../pages/Homepage.js';
-import Checkin from '../pages/Checkinpage.js';
 import onCamera from "../pages/Camera.js";
+import History from "../pages/History.js";
+import Welcome from "../pages/Welcome.js";
 import Shoppage from '../pages/Shoppage.js';
-import Shopdetail from "../pages/Shopdetail.js";
 import Signup from "../pages/SignUpForm.js";
 import Signin from "../pages/SignInForm.js";
-import History from "../pages/History.js";
+import Checkin from '../pages/Checkinpage.js';
+import Shopdetail from "../pages/Shopdetail.js";
+import Profilepage from "../pages/Profilepage.js";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Ionicons, AntDesign, Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
 
@@ -89,7 +88,7 @@ const SignInStackNavigator = () => {
         backgroundColor:'lightgrey'
       }
     }}>
-      <Stack.Screen name="Home" component={Home} options={{ headerShown: false, title: <Ionicons name="home" size={18} color="black"> Home </Ionicons> }} />
+      <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <Stack.Screen name="Sign In" component={Signin} options={{ headerShown: false, title: <FontAwesome name="sign-in" size={18} color="black"> Sign In </FontAwesome> }} />
       <Stack.Screen name="Sign Up" component={Signup} options={{ headerShown: false, title: <AntDesign name="adduser" size={18} color="black"> Sign Up </AntDesign> }} />
       <Stack.Screen name="Profile" component={Profilepage} options={{ title: <AntDesign name="user" size={18} color="black"> Profile </AntDesign> }} />

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import axios from 'axios';
+import React, { useState } from 'react';
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
+import { StyleSheet, Text, View, SafeAreaView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 // import Toast from 'react-native-root-toast';
 
@@ -54,63 +54,69 @@ export default function Signup({navigation}) {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.container}>
-                <AntDesign name="adduser" size={24} color="black"> Sign Up </AntDesign>
-                <View style={styles.form}>
-                    <AntDesign name="user" size={18} color="black">
-                        Username 
-                    </AntDesign>
-                    <View style={styles.textinput}>
-                        <View style={styles.textinputicon}>
-                            <AntDesign name="user" size={18} color="black"/>
+        // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <SafeAreaView style={styles.safecontainer}> 
+                <View style={styles.container}>
+                    <AntDesign name="adduser" size={24} color="black"> Sign Up </AntDesign>
+                    <View style={styles.form}>
+                        <AntDesign name="user" size={18} color="black">
+                            Username 
+                        </AntDesign>
+                        <View style={styles.textinput}>
+                            <View style={styles.textinputicon}>
+                                <AntDesign name="user" size={18} color="black"/>
+                            </View>
+                            <TextInput clearButtonMode='while-editing' textContentType="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinputflex} onChangeText={text => setusername(text)}/>
                         </View>
-                        <TextInput clearButtonMode='while-editing' textContentType="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinputflex} onChangeText={text => setusername(text)}/>
-                    </View>
-                    <AntDesign name="lock" size={18} color="black">
-                        Password
-                    </AntDesign>
-                    <View style={styles.textinput}>
-                        <View style={styles.textinputicon}>
-                            <AntDesign name="lock" size={18} color="black"/>
+                        <AntDesign name="lock" size={18} color="black">
+                            Password
+                        </AntDesign>
+                        <View style={styles.textinput}>
+                            <View style={styles.textinputicon}>
+                                <AntDesign name="lock" size={18} color="black"/>
+                            </View>
+                            <TextInput secureTextEntry={true} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" value={password} style={styles.textinputflex} onChangeText={text => setpassword(text)}/>
                         </View>
-                        <TextInput secureTextEntry={true} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" value={password} style={styles.textinputflex} onChangeText={text => setpassword(text)}/>
-                    </View>
-                    <Feather name="mail" size={18} color="black" >
-                        Email
-                    </Feather>
-                    <View style={styles.textinput}>
-                        <View style={styles.textinputicon}>
-                            <Feather name="mail" size={18} color="black" />
+                        <Feather name="mail" size={18} color="black" >
+                            Email
+                        </Feather>
+                        <View style={styles.textinput}>
+                            <View style={styles.textinputicon}>
+                                <Feather name="mail" size={18} color="black" />
+                            </View>
+                            <TextInput clearButtonMode='while-editing' textContentType="emailAddress" name="email" id="email" placeholder="Email" value={email} style={styles.textinputflex} onChangeText={text => setemail(text)}/>
                         </View>
-                        <TextInput clearButtonMode='while-editing' textContentType="emailAddress" name="email" id="email" placeholder="Email" value={email} style={styles.textinputflex} onChangeText={text => setemail(text)}/>
-                    </View>
-                    <FontAwesome name="mobile" size={18} color="black" >
-                        Mobile
-                    </FontAwesome>
-                    <View style={styles.textinput}>
-                        <View style={styles.textinputicon}>
-                            <FontAwesome name="mobile" size={18} color="black"/>
+                        <FontAwesome name="mobile" size={18} color="black" >
+                            Mobile
+                        </FontAwesome>
+                        <View style={styles.textinput}>
+                            <View style={styles.textinputicon}>
+                                <FontAwesome name="mobile" size={18} color="black"/>
+                            </View>
+                            <TextInput clearButtonMode='while-editing' textContentType="telephoneNumber" name="mobile" id="mobile" placeholder="Mobile" value={mobile} style={styles.textinputflex} onChangeText={text => setmobile(text)}/>
                         </View>
-                        <TextInput clearButtonMode='while-editing' textContentType="telephoneNumber" name="mobile" id="mobile" placeholder="Mobile" value={mobile} style={styles.textinputflex} onChangeText={text => setmobile(text)}/>
                     </View>
-                </View>
-                <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-                    <AntDesign name="adduser" size={24} color="black"/>
-                    <Text style={styles.buttontext}> Sign Up </Text>
-                </TouchableOpacity>
-                <View style={styles.signin} >
-                    <Text> Exisiting user? </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Sign In')}>
-                        <Text style={styles.textsignin}> Sign In </Text>
+                    <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+                        <AntDesign name="adduser" size={24} color="black"/>
+                        <Text style={styles.buttontext}> Sign Up </Text>
                     </TouchableOpacity>
+                    <View style={styles.signin} >
+                        <Text> Exisiting user? </Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('Sign In')}>
+                            <Text style={styles.textsignin}> Sign In </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-        </TouchableWithoutFeedback>
+            </SafeAreaView>
+        // </TouchableWithoutFeedback>
     );
 }
 
 const styles = StyleSheet.create({
+    safecontainer: {
+        flex:1,
+        backgroundColor:'black'
+    },
     container:{
         flex:1,
         backgroundColor: '#fff',

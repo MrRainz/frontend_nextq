@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import axios from 'axios';
-import { Card } from 'react-native-elements'
 import { Entypo } from '@expo/vector-icons';
+import { Card } from 'react-native-elements';
 import { Auth } from '../components/context.js';
+import React, { useState, useEffect, useContext } from 'react';
+import { StyleSheet, Text, SafeAreaView, View, ScrollView } from 'react-native';
 
 export default function History() {
 
@@ -23,23 +23,29 @@ export default function History() {
   console.log(userimages)
 
   return (
-    <ScrollView style={styles.container}>
-      { userimages.map(image => (
-        <Card containerStyle={styles.card} key={image.id}>
-          <View style={styles.cardcont}>
-            <Entypo name="location" size={35} color="black" style={{margin:10}}/>
-          <View style={styles.cardtext}>
-            <Text> Location: </Text>
-            <Text> Time: </Text>
-          </View>
-          </View>
-        </Card>
-      ))}
-    </ScrollView>
+    <SafeAreaView style={styles.safecontainer}>
+      <ScrollView contentContainerStyle={styles.container}>
+        { userimages.map(image => (
+          <Card containerStyle={styles.card} key={image.id}>
+            <View style={styles.cardcont}>
+              <Entypo name="location" size={35} color="black" style={{margin:10}}/>
+            <View style={styles.cardtext}>
+              <Text> Location: </Text>
+              <Text> Time: </Text>
+            </View>
+            </View>
+          </Card>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles= StyleSheet.create({
+  safecontainer: {
+    flex:1,
+    backgroundColor:'black'
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
