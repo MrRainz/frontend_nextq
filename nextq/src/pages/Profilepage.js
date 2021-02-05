@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import {StyleSheet, Text, View, Button, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
-
+import { StyleSheet, Text, View, Button, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { Card } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Auth } from '../components/context.js';
 // import Toast from 'react-native-root-toast';
@@ -45,7 +45,7 @@ export default function Profilepage({navigation}) {
             </View>
           </View>
 
-          <View style={styles.bottomContainer}>
+          <Card containerStyle={styles.bottomContainer}>
             <View style={styles.userDetailBox}>
               <View style={styles.email}>
                 <Text>Email</Text>
@@ -54,35 +54,31 @@ export default function Profilepage({navigation}) {
                 <Text>Phone Number</Text>
               </View>
             </View>
-            <View style={styles.checkoutButton}>
-              <TouchableOpacity style={styles.button} >
-                <Text style={styles.buttonText} onPress={handleLogout}>Check Out</Text>
-              </TouchableOpacity>
+            <View style={styles.signoutplacement}>
+            <TouchableOpacity style={styles.button} title="Log Out" onPress={handleLogout} >
+                <FontAwesome name="sign-out" size={24} color="black" />
+                <Text style={styles.buttontextinout}> Sign Out </Text>
+            </TouchableOpacity>
             </View>
-          </View>
+          </Card>
         </ScrollView>
-        </SafeAreaView> 
+      </SafeAreaView> 
       :
       <View style={styles.notificationContainer}>
         <Text style={styles.notificationText}>Welcome back !</Text>
         <Text style={styles.notificationBodyText}>Please sign in to your account </Text>
-        { loggedIn 
-      ? <TouchableOpacity style={styles.button} title="Log Out" onPress={handleLogout} >
-          <FontAwesome name="sign-out" size={24} color="black" />
-          <Text style={styles.buttontext}> Sign Out </Text>
-        </TouchableOpacity>
-      : <View style={styles.buttonplacement}>
+        <View style={styles.buttonplacement}>
           <TouchableOpacity style={styles.button} title="Sign Up" //Need to move to new page
             onPress={() => navigation.navigate("Sign Up")}>
               <AntDesign name="adduser" size={24} color="black"/>
-              <Text style={styles.buttontext}> Sign Up </Text>
+              <Text style={styles.buttontextinout}> Sign Up </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} title="Sign Up" //Need to move to new page
             onPress={() => navigation.navigate("Sign In")}>
               <FontAwesome name="sign-in" size={24} color="black"/>
-              <Text style={styles.buttontext}> Sign In </Text>
+              <Text style={styles.buttontextinout}> Sign In </Text>
           </TouchableOpacity>
-          </View> }
+        </View> 
       </View>
       } 
     </View>
@@ -92,28 +88,20 @@ export default function Profilepage({navigation}) {
 const styles=StyleSheet.create({
   navigation: {
     flex: 1,
-    backgroundColor: '#111111',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // loggedIn
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems:  'center',
-    backgroundColor: "#111111",
+    backgroundColor: "#fff",
   },
   topContainer: {
     flex: 1,
     top: 50,
-  },
-  bottomContainer: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "#ffffff",
-    width: 360,
-    height: 450,
-    borderRadius:50,
-    top:50,
   },
   text: {
     fontFamily: "Helvetica",
@@ -140,6 +128,33 @@ const styles=StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  usernameText: {
+    color: "#FD0D39",
+    fontFamily: "Helvetica",
+    fontSize:15,
+    paddingBottom: 30,
+  },
+  bottomContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent:'center',
+    width: 360,
+    height: 450,
+    borderRadius:50,
+    top:50,
+    borderWidth:0.25,
+    shadowOffset: {
+      width: 5,
+      height: 5
+    },
+    shadowRadius: 6,
+    shadowOpacity: 0.2
+  },
+  userDetailBox: {
+    alignItems: "center",
+    flexDirection: "column",
+    flex:0.8,
+  },
   email: {
     width:200,
     height:50,
@@ -157,51 +172,8 @@ const styles=StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  usernameText: {
-    color: "#FD0D39",
-    fontFamily: "Helvetica",
-    fontSize:15,
-    paddingBottom: 30,
-  },
-  userDetailBox: {
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    top:50,
-  },
-  button: {
-    alignItems: "center",
-    padding: 10,
-    top: 290
-  },
-  buttonText: {
-    fontFamily: "Helvetica",
-    fontSize:15,
-    color: "#0A0AFF",
-  },
-  notificationContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  notification:{
-    width: 300,
-    height: 200,
-    borderRadius: 30,
-    backgroundColor:"#ffffff",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  notificationText: {
-    color: "#ffffff",
-    paddingBottom: 30,
-    fontFamily: "Helvetica",
-    fontSize: 30
-  },
-  notificationBodyText: {
-    color: "#ffffff",
-    paddingBottom: 30,
-    fontFamily: "Helvetica",
-    fontSize: 20
+  signoutplacement: {
+    alignItems:'center'
   },
   buttonplacement: {
     flexDirection:'row',
@@ -222,8 +194,23 @@ const styles=StyleSheet.create({
     shadowOpacity: 0.2,
     backgroundColor: 'orange'
   },
-  buttontext: {
+  buttontextinout: {
     fontSize: 20,
     color:'white'
-  }
+  },
+  // loggedOut
+  notificationContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  notificationText: {
+    paddingBottom: 30,
+    fontFamily: "Helvetica",
+    fontSize: 30
+  },
+  notificationBodyText: {
+    paddingBottom: 30,
+    fontFamily: "Helvetica",
+    fontSize: 20
+  },
 })

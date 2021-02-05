@@ -10,20 +10,7 @@ export default function Checkin({navigation}) {
 
   return (
     <View style={styles.container}>
-      <Card containerStyle={{
-            flex:0.3,
-            width:'80%',
-            alignItems:'center',
-            justifyContent:'center',
-            borderRadius:25,
-            borderWidth:0.25,
-            shadowOffset: {
-              width: 5,
-              height: 5
-            },
-            shadowRadius: 6,
-            shadowOpacity: 0.2
-            }}>
+      <Card containerStyle={styles.card}>
         <View style={styles.cardtext}>
           <Text style={styles.user}> User </Text>
           <Text style={styles.mobile}> Mobile:123123 </Text>
@@ -50,6 +37,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems:'center',
     justifyContent: 'center'
+  },
+  card :{
+    flex:0.3,
+    width:'80%',
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius:25,
+    borderWidth:0.25,
+    shadowOffset: {
+      width: 5,
+      height: 5
+    },
+    shadowRadius: 6,
+    shadowOpacity: 0.2
   },
   cardtext: {
     flex: 1,

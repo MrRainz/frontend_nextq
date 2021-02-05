@@ -28,18 +28,10 @@ const HomeStackNavigator = () => {
 const ShopStackNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Shop" component={Shoppage} options={{ title: <Entypo name="shop" size={18} color="black"> Shop </Entypo> }}/>
-      <Stack.Screen name="Shopdetail" component={Shopdetail} />
+      <Stack.Screen name="Shops" component={Shoppage} options={{ title: <Entypo name="shop" size={18} color="black"> Shops </Entypo> }}/>
+      <Stack.Screen name="Shop" component={Shopdetail} options={{ title: <Entypo name="shop" size={18} color="black"> Shop </Entypo> }} />
     </Stack.Navigator>
   )
-}
-
-const ShopdetailStackNavigator = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Shopdetail" component={Shopdetail} />
-    </Stack.Navigator>
-  );
 }
 
 const CheckInStackNavigator = () => {
@@ -70,4 +62,4 @@ const HistoryStackNavigator = () => {
   )
 }
 
-export { HomeStackNavigator, ShopStackNavigator, ShopdetailStackNavigator, CheckInStackNavigator, ProfileStackNavigator, HistoryStackNavigator };
+export { HomeStackNavigator, ShopStackNavigator, CheckInStackNavigator, ProfileStackNavigator, HistoryStackNavigator };

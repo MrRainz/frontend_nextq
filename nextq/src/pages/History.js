@@ -25,16 +25,7 @@ export default function History() {
   return (
     <ScrollView style={styles.container}>
       { userimages.map(image => (
-        <Card containerStyle={{
-          borderRadius:25,
-          borderWidth:0.25,
-          shadowOffset: {
-            width: 5,
-            height: 5
-          },
-          shadowRadius: 6,
-          shadowOpacity: 0.2
-        }} key={image.id}>
+        <Card containerStyle={styles.card} key={image.id}>
           <View style={styles.cardcont}>
             <Entypo name="location" size={35} color="black" style={{margin:10}}/>
           <View style={styles.cardtext}>
@@ -53,7 +44,17 @@ const styles= StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  cardcont :{
+  card: {
+    borderRadius:25,
+    borderWidth:0.25,
+    shadowOffset: {
+      width: 5,
+      height: 5
+    },
+    shadowRadius: 6,
+    shadowOpacity: 0.2
+  },
+  cardcont: {
     flexDirection: 'row',
     alignItems: 'center'
   },

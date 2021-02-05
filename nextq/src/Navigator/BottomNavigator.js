@@ -21,7 +21,7 @@ const BottomNavigator = () => {
               color={color}
             />
           );
-        } else if (route.name === 'Shop') {
+        } else if (route.name === 'Shops') {
           return (
             <Entypo
               name={ focused ? 'shop' : 'shop' }
@@ -57,10 +57,11 @@ const BottomNavigator = () => {
       }
     })}> 
       <Tab.Screen name="Home" component={HomeStackNavigator} />
-      <Tab.Screen name="Shop" component={ShopStackNavigator}/>
+      <Tab.Screen name="Shops" component={ShopStackNavigator}/>
       <Tab.Screen name="Check In" component={CheckInStackNavigator}/>
       <Tab.Screen name="Profile" component={ProfileStackNavigator}/>
-      { loggedIn 
+      { 
+      loggedIn 
       ? <Tab.Screen name="History" component={HistoryStackNavigator}/> 
       : null
       }

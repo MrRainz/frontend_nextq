@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-import styles from '../../styles.js';
-import React from 'react';
-import { Text, View, Button } from 'react-native';
-=======
 import * as React from 'react';
-import 'react-native-gesture-handler';
 import { Text, View, SafeAreaView, ScrollView, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-
-export default function Homepage({navigation}) {
-    return (
-      <SafeAreaView style={styles.container}>
+export default function Shoppage({navigation}) {
+  return (
+    <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContentContainer}>
 
         <View style={styles.headerContainer} >
@@ -20,7 +13,7 @@ export default function Homepage({navigation}) {
         </View>
 
         <View style={styles.box} >
-          <TouchableOpacity onPress={() => navigation.navigate('Shopdetail')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
           <View>
             <Image style={styles.image} source={{uri:'https://maps.abuzzinteractive.net/klcc/api/v1.30/abuzz/media/storeinfoLogo/dest_1378.png'}} />
           </View>
@@ -152,77 +145,76 @@ export default function Homepage({navigation}) {
         </View>
       </ScrollView>
     </SafeAreaView>
->>>>>>> dc9dc49e36483f162c67a053b56b23b4dad6f90b
 
-    );
-  }
+  );
+}
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#111111",
-    },
-    scrollContentContainer: {
-      alignItems: "center",
-      paddingTop: 40,
-      paddingBottom: 60
-    },
-    box: {
-      height: 100,
-      width: 350,
-      borderRadius: 20,
-      marginVertical: 5,
-      backgroundColor: "#C4C4C4",
-      alignItems: "center",
-      justifyContent: "space-around",
-      flexDirection: "row"
-    },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#111111",
+  },
+  scrollContentContainer: {
+    alignItems: "center",
+    paddingTop: 40,
+    paddingBottom: 60
+  },
+  box: {
+    height: 100,
+    width: 350,
+    borderRadius: 20,
+    marginVertical: 5,
+    backgroundColor: "#C4C4C4",
+    alignItems: "center",
+    justifyContent: "space-around",
+    flexDirection: "row"
+  },
+
+  headerContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignContent: "flex-start",
+    marginTop: 100,
+    marginBottom:20,
   
-    headerContainer: {
-      flex: 1,
-      flexDirection: "row",
-      alignContent: "flex-start",
-      marginTop: 100,
-      marginBottom:20,
-   
-    },
+  },
+
+  headerText:{
+    color:  "#FFFFFF",
+    fontSize: 20,
+    fontWeight: "bold",
+
+  },
+
+  textContainer: {
+    flex: 1,
+    flexDirection:  "column",
+    justifyContent: "center",
+    fontFamily: "Cochin",
+    margin: 8,
+    width: 200,
+    height: 80
+  },
   
-    headerText:{
-      color:  "#FFFFFF",
-      fontSize: 20,
-      fontWeight: "bold",
-  
-    },
-  
-    textContainer: {
-      flex: 1,
-      flexDirection:  "column",
-      justifyContent: "center",
-      fontFamily: "Cochin",
-      margin: 8,
-      width: 200,
-      height: 80
-    },
-  
-    titleText: {
-      flex: 1,
-      fontSize: 15,
-      fontWeight: "bold",
+  titleText: {
+    flex: 1,
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#000",
+  },
+
+  bodyText: {
+    flex: 1,
+    fontSize: 14,
       color: "#000",
-    },
+  },
   
-    bodyText: {
-      flex: 1,
-      fontSize: 14,
-      color: "#000",
-    },
-  
-    image: {
-      width: 105,
-      height: 100,
-      borderRadius: 10,
-      backgroundColor: "red",
-      alignItems: "center",
-    },
+  image: {
+    width: 105,
+    height: 100,
+    borderRadius: 10,
+    backgroundColor: "red",
+    alignItems: "center",
+  },
 
-  });
+})
