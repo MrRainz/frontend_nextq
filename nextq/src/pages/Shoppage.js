@@ -41,6 +41,24 @@ export default function Shoppage() {
       queue:4,
       image: 'https://maps.abuzzinteractive.net/klcc/api/v1.30/abuzz/media/storeinfoLogo/dest_1378.png'
     },
+    {
+      id:5,
+      customer_limit: 5,
+      headcount: 3,
+      location: "OneU",
+      name: "Converse",
+      queue:4,
+      image: 'https://maps.abuzzinteractive.net/klcc/api/v1.30/abuzz/media/storeinfoLogo/dest_1378.png'
+    },
+    {
+      id:6,
+      customer_limit: 5,
+      headcount: 3,
+      location: "OneU",
+      name: "Converse",
+      queue:4,
+      image: 'https://maps.abuzzinteractive.net/klcc/api/v1.30/abuzz/media/storeinfoLogo/dest_1378.png'
+    },
   ])
   
   const [filterdata, setfilterdata] = React.useState("")
@@ -52,7 +70,7 @@ export default function Shoppage() {
 
   return (
     <SafeAreaView style={styles.safecontainer}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.container}>
         <View style={styles.map}>
           <View style={styles.search}>
             <FontAwesome name="search" size={24} color="black" style={styles.icon}  />
@@ -65,6 +83,7 @@ export default function Shoppage() {
             }
             <Switch onValueChange={toggleSwitch} value={isEnabled}/>
           </View>
+          <ScrollView contentContainerStyle={{alignItems:'center'}}>
           { 
           isEnabled
           ? filterlocation.map(shop => (    
@@ -130,8 +149,9 @@ export default function Shoppage() {
               </View>
             ))
           }
+          </ScrollView>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -139,7 +159,7 @@ export default function Shoppage() {
 const styles = StyleSheet.create({
   safecontainer: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
   },
   container: {
     flex:1,
@@ -148,13 +168,14 @@ const styles = StyleSheet.create({
   },
   map: {
     flex:1, 
-    width: "90%", 
-    alignItems:'center'
+    width: "100%"
   },
   search: { 
-    height:40, 
+    height:40,
+    width:"80%",
+    alignSelf:'center', 
     alignItems:'center', 
-    justifyContent:'center', 
+    justifyContent:'space-between', 
     flexDirection:'row', 
     borderWidth:0.5, 
     borderColor:'grey', 
@@ -162,16 +183,16 @@ const styles = StyleSheet.create({
     margin:5
   },
   textinput: {
-    flex:0.8,
+    flex:1,
     height:"80%"
   },
   shopcard: {
     height: 125,
-    width: "100%",
+    width: "90%",
     borderRadius: 20,
     margin:10,
     backgroundColor: "#C4C4C4",
-    flexDirection:'row'
+    flexDirection:'row',
   },
   shopimageplacement: {
     alignItems:'center', 

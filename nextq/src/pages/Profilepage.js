@@ -3,7 +3,7 @@ import { Card } from 'react-native-elements';
 import { Auth } from '../components/context.js';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 
 // import Toast from 'react-native-root-toast';
 
@@ -31,7 +31,7 @@ export default function Profilepage({navigation}) {
       { 
       loggedIn
       ?
-      <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.container}>
         <View style={styles.topContainer}>
           <View style={styles.imageBox}>
               <View style={styles.profileImage}>
@@ -58,7 +58,7 @@ export default function Profilepage({navigation}) {
             </TouchableOpacity>
           </View>
         </Card>
-      </ScrollView>
+      </View>
       :
       <View style={styles.notificationContainer}>
         <Text style={styles.notificationText}>Welcome back !</Text>

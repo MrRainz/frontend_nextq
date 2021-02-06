@@ -8,35 +8,37 @@ import { StyleSheet, Text, SafeAreaView, View, ScrollView } from 'react-native';
 export default function History() {
 
   const { loggedIn } = useContext(Auth);
-  const [userimages, setuserimages] = useState([])
+  const [userimages, setuserimages] = useState([{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9}])
 
-  useEffect(() => {    
-    axios.get(`https://insta.nextacademy.com/api/v2/images?userId=${1}`)
-    .then (result => {
-    console.log(result)
-    setuserimages([...result.data])
-    })
-    .catch (error => {
-      console.log('ERROR: ',error)
-    })
-  },[])
-  console.log(userimages)
+  // useEffect(() => {    
+  //   axios.get(`https://insta.nextacademy.com/api/v2/images?userId=${1}`)
+  //   .then (result => {
+  //   console.log(result)
+  //   setuserimages([...result.data])
+  //   })
+  //   .catch (error => {
+  //     console.log('ERROR: ',error)
+  //   })
+  // },[])
+  // console.log(userimages)
 
   return (
     <SafeAreaView style={styles.safecontainer}>
-      <ScrollView contentContainerStyle={styles.container}>
-        { userimages.map(image => (
-          <Card containerStyle={styles.card} key={image.id}>
-            <View style={styles.cardcont}>
-              <Entypo name="location" size={35} color="black" style={{margin:10}}/>
-            <View style={styles.cardtext}>
-              <Text> Location: </Text>
-              <Text> Time: </Text>
-            </View>
+      <View style={styles.container}>
+        <ScrollView>
+          { userimages.map(image => (
+            <Card containerStyle={styles.card} key={image.id}>
+              <View style={styles.cardcont}>
+                <Entypo name="location" size={35} color="black" style={{margin:10}}/>
+              <View style={styles.cardtext}>
+                <Text> Location: </Text>
+                <Text> Time: </Text>
+              </View>
             </View>
           </Card>
-        ))}
-      </ScrollView>
+          ))}
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

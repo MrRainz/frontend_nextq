@@ -7,7 +7,6 @@ import Shoppage from '../pages/Shoppage.js';
 import Signup from "../pages/SignUpForm.js";
 import Signin from "../pages/SignInForm.js";
 import Checkin from '../pages/Checkinpage.js';
-import Shopdetail from "../pages/Shopdetail.js";
 import Profilepage from "../pages/Profilepage.js";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons, AntDesign, Entypo, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -36,7 +35,6 @@ const ShopStackNavigator = () => {
       }
     }}>
       <Stack.Screen name="Shops" component={Shoppage} options={{ title: <Entypo name="shop" size={18} color="black"> Shops </Entypo> }}/>
-      <Stack.Screen name="Shop" component={Shopdetail} options={{ title: <Entypo name="shop" size={18} color="black"> Shop </Entypo> }} />
     </Stack.Navigator>
   )
 }

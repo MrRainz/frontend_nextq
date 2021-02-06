@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons'; 
 import { Auth } from '../components/context.js';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 
 export default function Homepage({navigation}) {
 
@@ -9,8 +9,8 @@ export default function Homepage({navigation}) {
 
   return (
     <SafeAreaView style={styles.safecontainer}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <View style={{flex:1,justifyContent:'center'}}>
+      <View style={styles.container}>
+        <View style={styles.topcontainer}>
           <View style={styles.image}>
             <Text style={styles.textq}>Q</Text>
             <Text style={styles.textnextq}>NextQ</Text>
@@ -30,7 +30,7 @@ export default function Homepage({navigation}) {
             }
           </View>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -43,6 +43,10 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     backgroundColor: 'white',
+  },
+  topcontainer: {
+    flex:1,
+    justifyContent:'center'
   },
   image: {
     flex:0.6,

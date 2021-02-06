@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons'; 
 import { Auth } from '../components/context.js';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 
 export default function Welcome({navigation}) {
 
@@ -9,7 +9,7 @@ export default function Welcome({navigation}) {
 
     return (
         <SafeAreaView style={styles.safecontainer}>
-            <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.container}>
                 <View style={styles.container}>
                     <View style={styles.image}>
                         <View style={styles.imagetext}>
@@ -32,7 +32,7 @@ export default function Welcome({navigation}) {
                         }
                     </View>
                 </View>
-            </ScrollView>
+            </View>
         </SafeAreaView>
     );
 }
