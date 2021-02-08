@@ -12,12 +12,21 @@ export default function Profilepage({navigation}) {
 
   // Pass states from setAllState @ App.js using Context & Memo.
   const { loggedIn, setLoggedFalse, loading, setLoadingFalse, setLoadingTrue } = useContext(Auth); 
+  
+  // Remove jwt and userID
+  const removeJWT_userID = async() => {
+    try {
+      await AsyncStorage.multiRemove(['jwt', 'userID']) ;
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
 
   // Sign out function
   const handleSignOut = () => {
     setLoadingTrue()
     // Remove both 'jwt' and 'userID' from AsyncStorage. Act as the same as localstorage in ReactJS
-    AsyncStorage.multiRemove(['jwt', 'userID']) 
+    removeJWT_userID()
     setLoadingFalse()
     setLoggedFalse()
     // Toast.show('Successfully sign out!', {

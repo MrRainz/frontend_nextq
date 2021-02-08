@@ -14,31 +14,42 @@ export default function Signin({navigation}) {
     const { setLoggedTrue, loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
     
     // NEED TO REDO TO SUIT OUR APP
-    const [username, setusername]= useState("")
+    const [mobile, setmobile]= useState("")
     const [password, setpassword]= useState("")
 
-    // Display or Hide Password Input
-    // To change state of password secure mode true / false @ <TextInput> secureTextEntry
+    // Display or Hide Password Input ( true / false @ <TextInput> secureTextEntry )
     const [passwordView, setpasswordView]= useState(true) 
+
+    // storeJWT_userID function
+    const storeJWT_userID = async (valueJWT, valueID) => {
+        try {
+            // The keyword await makes JavaScript wait until that promise settles and returns its result.
+            await AsyncStorage.multiSet(
+                [['jwt',valueJWT],['userID',valueID]]
+            );
+        } catch (error) {
+          console.log('AsyncStorage error: ' + error.message);
+        }
+    }
 
     // Sign In function
     const handleSignIn = () => {
         setLoadingTrue()
         axios({
           method: 'POST',
-          url: 'https://insta.nextacademy.com/api/v1/login',
+          url: 'https://nextq.herokuapp.com/api/v1/auth/user',
           data: {
-            username: username,
+            mobile: mobile,
             password: password
           }
         })
         .then(result => {
             console.log(result)
             console.log("Success")
-            console.log(result.data.auth_token)
+            console.log(result.data.token)
             // Async just allow to set item with string - This to convert number into string.
-            const userID = JSON.stringify(result.data.user.id) 
-            AsyncStorage.multiSet([['jwt', result.data.auth_token], ['userID', userID ]])
+            const userID = JSON.stringify(result.data.user_id)
+            storeJWT_userID(result.data.token,userID)
             setLoadingFalse()
             setLoggedTrue()
             // navigation.navigate('Profile')
@@ -75,14 +86,14 @@ export default function Signin({navigation}) {
                 <View style={styles.container}>
                     <FontAwesome name="sign-in" size={24} color="black"> Sign In </FontAwesome> 
                     <View style={styles.form}> 
-                        <FontAwesome name="user-o" size={18} color="black">
-                            Username
+                        <FontAwesome name="mobile" size={18} color="black">
+                            Mobile
                         </FontAwesome>
                         <View style={styles.textinput}>
                             <View style={styles.textinputicon}>
-                                <FontAwesome name="user-o" size={18} color="black"/>
+                                <FontAwesome name="mobile" size={18} color="black"/>
                             </View>
-                            <TextInput clearButtonMode='while-editing' textContentType="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinputflex} onChangeText={text => setusername(text)}/>
+                            <TextInput clearButtonMode='while-editing' textContentType="telephoneNumber" name="mobile" id="mobile" placeholder="Mobile number" value={mobile} style={styles.textinputflex} onChangeText={text => setmobile(text)}/>
                         </View>
                         <AntDesign name="lock" size={18} color="black">
                             Password

@@ -14,26 +14,45 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState()
   const [loading, setLoading] = useState(false)
   const [userID, setuserID]= useState()
-
-  // To get jwt token. Act as the same as localstorage in ReactJS
-  AsyncStorage.getItem('jwt').then((result) => {
-    if (result == null) {
-      setLoggedIn(false) // if result == null, return loggedIn state to false which indicates user is not loggedIn.
-    }
-    else {
-      setLoggedIn(true)
-    }
-  })
+  const [jwt, setjwt] = useState()
   
+  // To get jwt token. Act as the same as localstorage in ReactJS
+  const retrieveJWT = async () => {
+    try {
+      // The keyword await makes JavaScript wait until that promise settles and returns its result.
+      const jwt = await AsyncStorage.getItem('jwt');
+      if (jwt == null) {
+        setLoggedIn(false) // if result == null, return loggedIn state to false which indicates user is not loggedIn.
+        setjwt("")
+      }
+      else {
+        setLoggedIn(true)
+        setjwt(jwt)
+      }
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+  
+  retrieveJWT()
+
   // To get userID after login. Act as the same as localstorage in ReactJS.
-  AsyncStorage.getItem('userID').then((result) => {
-    if (result == null) {  
-      setuserID(result) // if result == null, set result into setID()
+  const getUserID = async () => {
+    try {
+      // The keyword await makes JavaScript wait until that promise settles and returns its result.
+      const id = await AsyncStorage.getItem('userID');
+      if (id == null) {  
+        setuserID(null) // if result == null, set result into setID()
+      }
+      else {
+        setuserID(id)
+      }
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
     }
-    else {
-      setuserID(result)
-    }
-  })
+  }
+
+  getUserID()
 
   // Pass states to other js files using useMemo and useContext
   const setAllState = useMemo(()=> ({
@@ -52,6 +71,7 @@ export default function App() {
       setLoading(true)
     },
     userID,
+    jwt
   }));
 
   return (

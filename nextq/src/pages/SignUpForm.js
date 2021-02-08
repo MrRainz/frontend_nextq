@@ -13,7 +13,7 @@ export default function Signup({navigation}) {
     const { loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
     
     // NEED TO REDO TO SUIT OUR APP
-    const [username,setusername]=useState("")
+    const [name,setname]=useState("")
     const [password,setpassword]=useState("")
     const [email,setemail]=useState("")
     const [mobile,setmobile]=useState("")
@@ -27,11 +27,12 @@ export default function Signup({navigation}) {
         setLoadingTrue()   
         axios({
             method: 'POST',
-            url: 'https://insta.nextacademy.com/api/v1/users/',
+            url: 'https://nextq.herokuapp.com/api/v1/users',
             data: {
-                username: username,
+                name: name,
                 email: email,
-                password: password
+                password: password,
+                mobile: mobile
             }
         })
         .then(result => {
@@ -73,13 +74,13 @@ export default function Signup({navigation}) {
                     <AntDesign name="adduser" size={24} color="black"> Sign Up </AntDesign>
                     <View style={styles.form}>
                         <FontAwesome name="user-o" size={18} color="black">
-                            Username 
+                            Name 
                         </FontAwesome>
                         <View style={styles.textinput}>
                             <View style={styles.textinputicon}>
                                 <FontAwesome name="user-o" size={18} color="black"/>
                             </View>
-                            <TextInput clearButtonMode='while-editing' textContentType="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinputflex} onChangeText={text => setusername(text)}/>
+                            <TextInput clearButtonMode='while-editing' textContentType="name" name="name" id="name" placeholder="Username" value={name} style={styles.textinputflex} onChangeText={text => setname(text)}/>
                         </View>
                         <AntDesign name="lock" size={18} color="black">
                             Password
