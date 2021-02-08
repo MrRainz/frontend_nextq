@@ -1,7 +1,7 @@
 import { Camera } from 'expo-camera';
 import { Entypo } from '@expo/vector-icons';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, StatusBar} from 'react-native';
 
 export default function onCamera({navigation}) {
 
@@ -30,6 +30,7 @@ export default function onCamera({navigation}) {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle='dark-content'/>
       <Camera flashMode={flashtype} 
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={[StyleSheet.absoluteFill, styles.camera]}>

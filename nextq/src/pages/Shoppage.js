@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Entypo, FontAwesome } from '@expo/vector-icons'; 
-import { Text, View, SafeAreaView, ScrollView, StyleSheet, Image, TextInput, Switch } from 'react-native';
+import { Text, View, SafeAreaView, ScrollView, StyleSheet, Image, TextInput, Switch, StatusBar } from 'react-native';
 
 export default function Shoppage() {
 
@@ -70,12 +70,13 @@ export default function Shoppage() {
 
   return (
     <SafeAreaView style={styles.safecontainer}>
+      <StatusBar barStyle='dark-content'/>
       <View style={styles.container}>
         <View style={styles.map}>
           <View style={styles.search}>
             <FontAwesome name="search" size={24} color="black" style={styles.icon}  />
             { 
-            isEnabled 
+            isEnabled
             ? 
             <TextInput clearButtonMode='while-editing' style={styles.textinput} value={filterdata} placeholder="Search by location" onChangeText={text => setfilterdata(text)}/>
             :
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
   shopimage: {
     width: 105,
     flex:1,
-    borderRadius: 10,
+    borderRadius: 20,
     margin:5,
   },
   shoptextplacement: { 

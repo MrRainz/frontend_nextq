@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Ionicons } from '@expo/vector-icons'; 
 import { Auth } from '../components/context.js';
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, StatusBar } from 'react-native';
 
 export default function Homepage({navigation}) {
 
@@ -9,6 +9,7 @@ export default function Homepage({navigation}) {
   
   return (
     <SafeAreaView style={styles.safecontainer}>
+      <StatusBar barStyle='dark-content'/>
       <View style={styles.container}>
         <View style={styles.topcontainer}>
           <View style={styles.image}>

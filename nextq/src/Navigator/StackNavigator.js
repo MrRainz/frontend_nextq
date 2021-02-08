@@ -60,7 +60,7 @@ const ProfileStackNavigator = () => {
         backgroundColor:'lightgrey'
       }
     }}>
-      <Stack.Screen name="Profile" component={Profilepage} options={{ title: <AntDesign name="user" size={18} color="black"> Profile </AntDesign> }} />
+      <Stack.Screen name="Profile" component={Profilepage} options={{ title: <FontAwesome name="user-o" size={18} color="black"> Profile </FontAwesome> }} />
       <Stack.Screen name="Sign Up" component={Signup} options={{ title: <AntDesign name="adduser" size={18} color="black"> Sign Up </AntDesign> }} />
       <Stack.Screen name="Sign In" component={Signin} options={{ title: <FontAwesome name="sign-in" size={18} color="black"> Sign In </FontAwesome> }} />
     </Stack.Navigator>
@@ -89,7 +89,6 @@ const SignInStackNavigator = () => {
       <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       <Stack.Screen name="Sign In" component={Signin} options={{ headerShown: false, title: <FontAwesome name="sign-in" size={18} color="black"> Sign In </FontAwesome> }} />
       <Stack.Screen name="Sign Up" component={Signup} options={{ headerShown: false, title: <AntDesign name="adduser" size={18} color="black"> Sign Up </AntDesign> }} />
-      <Stack.Screen name="Profile" component={Profilepage} options={{ title: <AntDesign name="user" size={18} color="black"> Profile </AntDesign> }} />
     </Stack.Navigator>
   );
 }

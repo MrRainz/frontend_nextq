@@ -8,10 +8,12 @@ import { StyleSheet, Text, View, SafeAreaView, TextInput, TouchableOpacity, Acti
 
 export default function Signup({navigation}) {
     // NEED TO REDO TO SUIT OUR APP
-    const [username,setusername]=useState("");
+    const [username,setusername]=useState("")
     const [password,setpassword]=useState("")
     const [email,setemail]=useState("")
     const [mobile,setmobile]=useState("")
+
+    const [passwordView, setpasswordView]= useState(true)
 
     const { loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
 
@@ -65,12 +67,12 @@ export default function Signup({navigation}) {
                 <View style={styles.container}>
                     <AntDesign name="adduser" size={24} color="black"> Sign Up </AntDesign>
                     <View style={styles.form}>
-                        <AntDesign name="user" size={18} color="black">
+                        <FontAwesome name="user-o" size={18} color="black">
                             Username 
-                        </AntDesign>
+                        </FontAwesome>
                         <View style={styles.textinput}>
                             <View style={styles.textinputicon}>
-                                <AntDesign name="user" size={18} color="black"/>
+                                <FontAwesome name="user-o" size={18} color="black"/>
                             </View>
                             <TextInput clearButtonMode='while-editing' textContentType="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinputflex} onChangeText={text => setusername(text)}/>
                         </View>
@@ -81,7 +83,17 @@ export default function Signup({navigation}) {
                             <View style={styles.textinputicon}>
                                 <AntDesign name="lock" size={18} color="black"/>
                             </View>
-                            <TextInput secureTextEntry={true} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" value={password} style={styles.textinputflex} onChangeText={text => setpassword(text)}/>
+                            <TextInput secureTextEntry={passwordView} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" value={password} style={styles.textinputflex} onChangeText={text => setpassword(text)}/>
+                            { passwordView 
+                            ?
+                            <TouchableOpacity style={styles.textinputicon} onPress={() => setpasswordView(false)}>
+                                <Feather name="eye" size={18} color="black"/>
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity style={styles.textinputicon} onPress={() => setpasswordView(true)}>
+                                <Feather name="eye-off" size={18} color="black"/>
+                            </TouchableOpacity>
+                            }
                         </View>
                         <Feather name="mail" size={18} color="black" >
                             Email

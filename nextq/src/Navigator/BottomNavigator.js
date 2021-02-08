@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Auth } from '../components/context.js';
-import { Ionicons, AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { HomeStackNavigator, ProfileStackNavigator, CheckInStackNavigator, ShopStackNavigator, HistoryStackNavigator } from "./StackNavigator";
 
@@ -11,7 +11,7 @@ const BottomNavigator = () => {
   const { loggedIn } = useContext(Auth);
 
   return (
-    <Tab.Navigator barStyle={{ backgroundColor: 'lightgrey' }} screenOptions={({ route }) => ({
+    <Tab.Navigator initialRouteName="Scan" barStyle={{ backgroundColor: 'lightgrey' }} screenOptions={({ route }) => ({
       tabBarIcon: ({ focused, color, size=25 }) => {
         if (route.name === 'Home') {
           return (
@@ -39,8 +39,8 @@ const BottomNavigator = () => {
           );
         } else if (route.name === 'Profile') {
           return (
-            <AntDesign
-              name={ focused ? 'user' : 'user' }
+            <FontAwesome
+              name={ focused ? 'user-o' : 'user-o' }
               size={ size }
               color={ color }
               />

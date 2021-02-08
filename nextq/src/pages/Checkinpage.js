@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Card } from 'react-native-elements'
 import { Auth } from '../components/context.js';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, StatusBar } from 'react-native';
 
 export default function Checkin({navigation}) {
 
@@ -10,6 +10,7 @@ export default function Checkin({navigation}) {
 
   return (
     <SafeAreaView style={styles.safecontainer}>
+      <StatusBar barStyle='dark-content'/>
       <View style={styles.container}>
         <Card containerStyle={styles.card}>
           { 

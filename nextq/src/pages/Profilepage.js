@@ -3,7 +3,7 @@ import { Card } from 'react-native-elements';
 import { Auth } from '../components/context.js';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, ActivityIndicator, StatusBar } from 'react-native';
 
 // import Toast from 'react-native-root-toast';
 
@@ -13,7 +13,7 @@ export default function Profilepage({navigation}) {
 
   const handleLogout = () => {
     setLoadingTrue()
-    AsyncStorage.removeItem('jwt')
+    AsyncStorage.multiRemove(['jwt', 'userID'])
     setLoadingFalse()
     setLoggedFalse()
     // Toast.show('Successfully sign out!', {
@@ -30,6 +30,7 @@ export default function Profilepage({navigation}) {
 
   return (
     <SafeAreaView style={styles.safecontainer}>
+    <StatusBar barStyle='dark-content'/>
       { 
       loggedIn
       ?
@@ -39,9 +40,9 @@ export default function Profilepage({navigation}) {
               <View style={styles.profileImage}>
                 <Image source={require('../Images/pepega.png')} style={styles.image} resizeMode="center"></Image>
               </View>
-              <Card containerStyle={styles.username}>
+              <View style={styles.username}>
                 <Text style={styles.usernameText}>Username</Text>
-              </Card>
+              </View>
             </View>
         </View>
         <Card containerStyle={styles.CardBottomContainer}>
@@ -131,9 +132,7 @@ const styles=StyleSheet.create({
     margin:5,
     flex:1,
     width:'80%',
-    borderWidth:0.5,
     borderRadius:20,
-    borderColor:'lightgrey',
     justifyContent: "center",
     backgroundColor:'#F18606',
     alignItems: "center",
@@ -155,6 +154,7 @@ const styles=StyleSheet.create({
     flex:0.5,
     borderRadius:50,
     borderWidth:0.25,
+    borderColor:'lightgrey',
     shadowOffset: {
       width: 5,
       height: 5

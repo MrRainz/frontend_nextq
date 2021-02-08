@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { Auth } from '../components/context.js';
 import React, { useState, useContext } from 'react';
-import { AntDesign, FontAwesome } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-community/async-storage';
+import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
 import { StyleSheet, Text, SafeAreaView, View, TextInput, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard, RefreshControlBase } from 'react-native';
 
 // import Toast from 'react-native-root-toast';
@@ -11,6 +11,7 @@ export default function Signin({navigation}) {
     // NEED TO REDO TO SUIT OUR APP
     const [username, setusername]= useState("")
     const [password, setpassword]= useState("")
+    const [passwordView, setpasswordView]= useState(true)
 
     const { setLoggedTrue, loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
 
@@ -28,9 +29,9 @@ export default function Signin({navigation}) {
         .then(result => {
             console.log(result)
             console.log("Success")
-            const jwt = result.data.auth_token
-            console.log(jwt)
-            AsyncStorage.setItem('jwt', result.data.auth_token)
+            console.log(result.data.auth_token)
+            const userID = JSON.stringify(result.data.user.id) // Async just allow to set item with string - This to convert number into string.
+            AsyncStorage.multiSet([['jwt', result.data.auth_token], ['userID', userID ]])
             setLoadingFalse()
             setLoggedTrue()
             // navigation.navigate('Profile')
@@ -67,12 +68,12 @@ export default function Signin({navigation}) {
                 <View style={styles.container}>
                     <FontAwesome name="sign-in" size={24} color="black"> Sign In </FontAwesome> 
                     <View style={styles.form}> 
-                        <AntDesign name="user" size={18} color="black">
+                        <FontAwesome name="user-o" size={18} color="black">
                             Username
-                        </AntDesign>
+                        </FontAwesome>
                         <View style={styles.textinput}>
                             <View style={styles.textinputicon}>
-                                <AntDesign name="user" size={18} color="black"/>
+                                <FontAwesome name="user-o" size={18} color="black"/>
                             </View>
                             <TextInput clearButtonMode='while-editing' textContentType="username" name="username" id="username" placeholder="Username" value={username} style={styles.textinputflex} onChangeText={text => setusername(text)}/>
                         </View>
@@ -83,7 +84,17 @@ export default function Signin({navigation}) {
                             <View style={styles.textinputicon}>
                                 <AntDesign name="lock" size={18} color="black"/>
                             </View>
-                            <TextInput returnKeyType="send" secureTextEntry={true} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" style={styles.textinputflex} onChangeText={text => setpassword(text)} onSubmitEditing={handleSignIn}/>
+                            <TextInput returnKeyType="send" secureTextEntry={passwordView} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" style={styles.textinputflex} onChangeText={text => setpassword(text)} onSubmitEditing={handleSignIn}/>
+                            { passwordView 
+                            ?
+                            <TouchableOpacity style={styles.textinputicon} onPress={() => setpasswordView(false)}>
+                                <Feather name="eye" size={18} color="black"/>
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity style={styles.textinputicon} onPress={() => setpasswordView(true)}>
+                                <Feather name="eye-off" size={18} color="black"/>
+                            </TouchableOpacity>
+                            }
                         </View>
                     </View >
                     { 

@@ -3,27 +3,28 @@ import { Entypo } from '@expo/vector-icons';
 import { Card } from 'react-native-elements';
 import { Auth } from '../components/context.js';
 import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, SafeAreaView, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, ScrollView, StatusBar } from 'react-native';
 
 export default function History() {
 
-  const { loggedIn } = useContext(Auth);
-  const [userimages, setuserimages] = useState([{id:1},{id:2},{id:3},{id:4},{id:5},{id:6},{id:7},{id:8},{id:9}])
+  const { loggedIn, userID } = useContext(Auth);
+  const [userimages, setuserimages] = useState([])
 
-  // useEffect(() => {    
-  //   axios.get(`https://insta.nextacademy.com/api/v2/images?userId=${1}`)
-  //   .then (result => {
-  //   console.log(result)
-  //   setuserimages([...result.data])
-  //   })
-  //   .catch (error => {
-  //     console.log('ERROR: ',error)
-  //   })
-  // },[])
-  // console.log(userimages)
+  useEffect(() => {    
+    axios.get(`https://insta.nextacademy.com/api/v2/images?userId=${userID}`)
+    .then (result => {
+    console.log(result)
+    setuserimages([...result.data])
+    })
+    .catch (error => {
+      console.log('ERROR: ',error)
+    })
+  },[])
+  console.log(userimages)
 
   return (
     <SafeAreaView style={styles.safecontainer}>
+      <StatusBar barStyle='dark-content'/>
       <View style={styles.container}>
         <ScrollView>
           { userimages.map(image => (

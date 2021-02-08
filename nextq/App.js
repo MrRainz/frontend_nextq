@@ -1,6 +1,7 @@
+import axios from 'axios';
 import 'react-native-gesture-handler';
-import React, { useMemo, useState } from 'react';
 import { Auth } from './src/components/context.js';
+import React, { useMemo, useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { BottomNavigator } from './src/Navigator/BottomNavigator.js';
@@ -12,13 +13,23 @@ export default function App() {
   
   const [loggedIn, setLoggedIn] = useState()
   const [loading, setLoading] = useState(false)
-  
+  const [userID, setuserID]= useState()
+
   AsyncStorage.getItem('jwt').then((result) => {
     if (result == null) {
       setLoggedIn(false)
     }
     else {
       setLoggedIn(true)
+    }
+  })
+
+  AsyncStorage.getItem('userID').then((result) => {
+    if (result == null) {  
+      setuserID(result) // if result == null, set result into setID()
+    }
+    else {
+      setuserID(result)
     }
   })
 
@@ -36,7 +47,8 @@ export default function App() {
     },
     setLoadingTrue: () => {
       setLoading(true)
-    }
+    },
+    userID,
   }));
 
   return (
