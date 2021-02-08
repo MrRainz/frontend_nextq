@@ -13,7 +13,7 @@ export default function Signup({navigation}) {
     const [email,setemail]=useState("")
     const [mobile,setmobile]=useState("")
 
-    const [passwordView, setpasswordView]= useState(true)
+    const [passwordView, setpasswordView]= useState(true) // To change state of password secure mode true / false.
 
     const { loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
 

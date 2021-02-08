@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Auth } from '../components/context.js';
-import { Ionicons, FontAwesome, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { Ionicons, FontAwesome, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { HomeStackNavigator, ProfileStackNavigator, CheckInStackNavigator, ShopStackNavigator, HistoryStackNavigator } from "./StackNavigator";
 
 const Tab = createMaterialBottomTabNavigator();

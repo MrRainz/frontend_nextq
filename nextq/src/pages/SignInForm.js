@@ -3,7 +3,7 @@ import { Auth } from '../components/context.js';
 import React, { useState, useContext } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
-import { StyleSheet, Text, SafeAreaView, View, TextInput, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard, RefreshControlBase } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, TextInput, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 // import Toast from 'react-native-root-toast';
 
