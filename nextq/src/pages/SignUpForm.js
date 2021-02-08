@@ -4,20 +4,25 @@ import React, { useState, useContext } from 'react';
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
 import { StyleSheet, Text, View, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
+// Toastify if import unable to start expo web browser
 // import Toast from 'react-native-root-toast';
 
 export default function Signup({navigation}) {
+    
+    // Pass states from setAllState @ App.js using Context & Memo.
+    const { loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
+    
     // NEED TO REDO TO SUIT OUR APP
     const [username,setusername]=useState("")
     const [password,setpassword]=useState("")
     const [email,setemail]=useState("")
     const [mobile,setmobile]=useState("")
 
-    const [passwordView, setpasswordView]= useState(true) // To change state of password secure mode true / false.
+    // Display or Hide Password Input
+    // To change state of password secure mode true / false @ <TextInput> secureTextEntry
+    const [passwordView, setpasswordView]= useState(true) 
 
-    const { loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
-
-    // Testing Sign Up Api
+    // Sign Up function
     const handleSignUp = () => { 
         setLoadingTrue()   
         axios({

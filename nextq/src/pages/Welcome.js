@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'r
 
 export default function Welcome({navigation}) {
 
+    // Pass states from setAllState @ App.js using Context & Memo.
     const { loggedIn } = useContext(Auth);
 
     return (

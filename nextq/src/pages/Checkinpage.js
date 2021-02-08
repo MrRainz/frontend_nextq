@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { Card } from 'react-native-elements'
 import { Auth } from '../components/context.js';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, StatusBar } from 'react-native';
 
 export default function Checkin({navigation}) {
 
-  const { loggedIn } = useContext(Auth);
+  // Pass states from setAllState @ App.js using Context & Memo.
+  const { loggedIn } = useContext(Auth); 
 
   return (
     <SafeAreaView style={styles.safecontainer}>
@@ -39,11 +40,13 @@ export default function Checkin({navigation}) {
         { 
         loggedIn 
         ? <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Camera')}>
+            <Ionicons name="scan" size={25} color="white"/>
             <Text style={styles.buttontext}>
               SCAN
             </Text>
           </TouchableOpacity>
         : <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Sign In')}>
+            <Ionicons name="scan" size={25} color="white"/>
             <Text style={styles.buttontext}>
               SCAN
             </Text>
@@ -107,6 +110,7 @@ const styles = StyleSheet.create({
   button: {
     justifyContent:'center',
     alignItems:'center',
+    flexDirection:'row',
     width: '40%',
     height: "7.5%",
     borderRadius:50,
@@ -119,6 +123,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'orange'
   },
   buttontext: {
+  margin:5,
   color:'white',
   fontSize:20
   },

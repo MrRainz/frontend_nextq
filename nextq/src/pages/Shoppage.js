@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Entypo, FontAwesome } from '@expo/vector-icons'; 
-import { Text, View, SafeAreaView, ScrollView, StyleSheet, Image, TextInput, Switch, StatusBar } from 'react-native';
+import { Text, View, SafeAreaView, ScrollView, StyleSheet, Image, TextInput, Switch, StatusBar, RefreshControl } from 'react-native';
 
 export default function Shoppage() {
-
+  
+  // Shops
   const [shops, setshops] = React.useState([
     {
       id:1,
@@ -61,98 +62,121 @@ export default function Shoppage() {
     },
   ])
   
-  const [filterdata, setfilterdata] = React.useState("")
+  // Switch button
   const [isEnabled, setIsEnabled] = React.useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState); 
   
+  // Refreshing extract from react native doc @ RefreshControl https://reactnative.dev/docs/refreshcontrol
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  // Filter data ( convert shop.name/location into lower case allow insensitive case search )
+  const [filterdata, setfilterdata] = React.useState("")
   const filtername = shops.filter(shop => shop.name.toLowerCase().match(filterdata.toLowerCase()))
   const filterlocation = shops.filter(shop => shop.location.toLowerCase().match(filterdata.toLowerCase()))
 
   return (
     <SafeAreaView style={styles.safecontainer}>
       <StatusBar barStyle='dark-content'/>
-      <View style={styles.container}>
-        <View style={styles.map}>
-          <View style={styles.search}>
-            <FontAwesome name="search" size={24} color="black" style={styles.icon}  />
+      <ScrollView style={styles.refresh}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
+        <View style={styles.container}>
+          <View style={styles.map}>
+            <View style={styles.search}>
+              <FontAwesome name="search" size={24} color="black" style={styles.icon}  />
+              { 
+              isEnabled
+              ? 
+              <TextInput clearButtonMode='while-editing' style={styles.textinput} value={filterdata} placeholder="Search by location" onChangeText={text => setfilterdata(text)}/>
+              :
+              <TextInput clearButtonMode='while-editing' style={styles.textinput} value={filterdata} placeholder="Search by name" onChangeText={text => setfilterdata(text)}/>
+              }
+              <Switch onValueChange={toggleSwitch} value={isEnabled}/>
+            </View>
+            <ScrollView contentContainerStyle={{alignItems:'center'}}>
             { 
             isEnabled
-            ? 
-            <TextInput clearButtonMode='while-editing' style={styles.textinput} value={filterdata} placeholder="Search by location" onChangeText={text => setfilterdata(text)}/>
-            :
-            <TextInput clearButtonMode='while-editing' style={styles.textinput} value={filterdata} placeholder="Search by name" onChangeText={text => setfilterdata(text)}/>
+            ? filterlocation.map(shop => (    
+                <View key={shop.id} style={styles.shopcard}>
+                  <View style={styles.shopimageplacement}>
+                    <Image style={styles.shopimage} source={{uri:shop.image}}/>
+                  </View>
+                  <View style={styles.shoptextplacement}>
+                    <View style={styles.shopflex}>
+                      <Entypo name="shop" size={20} color="black" style={styles.icon}/>
+                      <Text style={styles.shopname}> {shop.name}</Text>
+                    </View> 
+                    <View style={styles.shopflex}>
+                      <Entypo name="location" size={20} color="black" style={styles.icon}/>
+                      <Text style={styles.shopplocation}> {shop.location}</Text>
+                    </View>
+                    <View style={styles.shopqueueplacement}>
+                      <View style={styles.queuedisplay}>
+                        <Text style={styles.queuetext}>Customer limit:</Text>
+                        <FontAwesome name="user-times" size={20} color="black" style={styles.icon} >: {shop.customer_limit}</FontAwesome>
+                      </View>
+                      <View style={styles.queuedisplay}>
+                        <Text style={styles.queuetext}>Headcount:</Text>
+                        <FontAwesome name="users" size={20} color="black" style={styles.icon} >: {shop.headcount}</FontAwesome>
+                      </View>
+                      <View style={styles.queuedisplay}>
+                        <Text style={styles.queuetext}>Queue:</Text>
+                        <FontAwesome name="user" size={20} color="black" style={styles.icon}>: {shop.queue}</FontAwesome>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              ))
+            : filtername.map(shop => (    
+                <View key={shop.id} style={styles.shopcard}>
+                  <View style={styles.shopimageplacement}>
+                    <Image style={styles.shopimage} source={{uri:shop.image}}/>
+                  </View>
+                  <View style={styles.shoptextplacement}>
+                    <View style={styles.shopflex}>
+                      <Entypo name="shop" size={20} color="black" style={styles.icon}/>
+                      <Text style={styles.shopname}> {shop.name}</Text>
+                    </View> 
+                    <View style={styles.shopflex}>
+                      <Entypo name="location" size={20} color="black" style={styles.icon}/>
+                      <Text style={styles.shopplocation}> {shop.location}</Text>
+                    </View>
+                    <View style={styles.shopqueueplacement}>
+                      <View style={styles.queuedisplay}>
+                        <Text style={styles.queuetext}>Customer limit:</Text>
+                        <FontAwesome name="user-times" size={20} color="black" style={styles.icon} >: {shop.customer_limit}</FontAwesome>
+                      </View>
+                      <View style={styles.queuedisplay}>
+                        <Text style={styles.queuetext}>Headcount:</Text>
+                        <FontAwesome name="users" size={20} color="black" style={styles.icon} >: {shop.headcount}</FontAwesome>
+                      </View>
+                      <View style={styles.queuedisplay}>
+                        <Text style={styles.queuetext}>Queue:</Text>
+                        <FontAwesome name="user" size={20} color="black" style={styles.icon}>: {shop.queue}</FontAwesome>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              ))
             }
-            <Switch onValueChange={toggleSwitch} value={isEnabled}/>
+            </ScrollView>
           </View>
-          <ScrollView contentContainerStyle={{alignItems:'center'}}>
-          { 
-          isEnabled
-          ? filterlocation.map(shop => (    
-              <View key={shop.id} style={styles.shopcard}>
-                <View style={styles.shopimageplacement}>
-                  <Image style={styles.shopimage} source={{uri:shop.image}}/>
-                </View>
-                <View style={styles.shoptextplacement}>
-                  <View style={styles.shopflex}>
-                    <Entypo name="shop" size={20} color="black" style={styles.icon}/>
-                    <Text style={styles.shopname}> {shop.name}</Text>
-                  </View> 
-                  <View style={styles.shopflex}>
-                    <Entypo name="location" size={20} color="black" style={styles.icon}/>
-                    <Text style={styles.shopplocation}> {shop.location}</Text>
-                  </View>
-                  <View style={styles.shopqueueplacement}>
-                    <View style={styles.queuedisplay}>
-                      <Text style={styles.queuetext}>Customer limit:</Text>
-                      <FontAwesome name="user-times" size={20} color="black" style={styles.icon} >: {shop.customer_limit}</FontAwesome>
-                    </View>
-                    <View style={styles.queuedisplay}>
-                      <Text style={styles.queuetext}>Headcount:</Text>
-                      <FontAwesome name="users" size={20} color="black" style={styles.icon} >: {shop.headcount}</FontAwesome>
-                    </View>
-                    <View style={styles.queuedisplay}>
-                      <Text style={styles.queuetext}>Queue:</Text>
-                      <FontAwesome name="user" size={20} color="black" style={styles.icon}>: {shop.queue}</FontAwesome>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            ))
-          : filtername.map(shop => (    
-              <View key={shop.id} style={styles.shopcard}>
-                <View style={styles.shopimageplacement}>
-                  <Image style={styles.shopimage} source={{uri:shop.image}}/>
-                </View>
-                <View style={styles.shoptextplacement}>
-                  <View style={styles.shopflex}>
-                    <Entypo name="shop" size={20} color="black" style={styles.icon}/>
-                    <Text style={styles.shopname}> {shop.name}</Text>
-                  </View> 
-                  <View style={styles.shopflex}>
-                    <Entypo name="location" size={20} color="black" style={styles.icon}/>
-                    <Text style={styles.shopplocation}> {shop.location}</Text>
-                  </View>
-                  <View style={styles.shopqueueplacement}>
-                    <View style={styles.queuedisplay}>
-                      <Text style={styles.queuetext}>Customer limit:</Text>
-                      <FontAwesome name="user-times" size={20} color="black" style={styles.icon} >: {shop.customer_limit}</FontAwesome>
-                    </View>
-                    <View style={styles.queuedisplay}>
-                      <Text style={styles.queuetext}>Headcount:</Text>
-                      <FontAwesome name="users" size={20} color="black" style={styles.icon} >: {shop.headcount}</FontAwesome>
-                    </View>
-                    <View style={styles.queuedisplay}>
-                      <Text style={styles.queuetext}>Queue:</Text>
-                      <FontAwesome name="user" size={20} color="black" style={styles.icon}>: {shop.queue}</FontAwesome>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            ))
-          }
-          </ScrollView>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -161,6 +185,9 @@ const styles = StyleSheet.create({
   safecontainer: {
     flex: 1,
     backgroundColor: "white",
+  },
+  refresh: {
+    backgroundColor:'white'
   },
   container: {
     flex:1,

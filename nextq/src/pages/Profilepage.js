@@ -5,15 +5,19 @@ import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, ActivityIndicator, StatusBar } from 'react-native';
 
+// Toastify if import unable to start expo web browser
 // import Toast from 'react-native-root-toast';
 
 export default function Profilepage({navigation}) {
 
-  const { loggedIn, setLoggedFalse, loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
+  // Pass states from setAllState @ App.js using Context & Memo.
+  const { loggedIn, setLoggedFalse, loading, setLoadingFalse, setLoadingTrue } = useContext(Auth); 
 
-  const handleLogout = () => {
+  // Sign out function
+  const handleSignOut = () => {
     setLoadingTrue()
-    AsyncStorage.multiRemove(['jwt', 'userID'])
+    // Remove both 'jwt' and 'userID' from AsyncStorage. Act as the same as localstorage in ReactJS
+    AsyncStorage.multiRemove(['jwt', 'userID']) 
     setLoadingFalse()
     setLoggedFalse()
     // Toast.show('Successfully sign out!', {
@@ -60,7 +64,7 @@ export default function Profilepage({navigation}) {
             ?                     
             <ActivityIndicator animating={true} size='small' color='black' style={styles.button}/>
             :
-            <TouchableOpacity style={styles.button} onPress={handleLogout} >
+            <TouchableOpacity style={styles.button} onPress={handleSignOut} >
               <FontAwesome name="sign-out" size={24} color="black" />
               <Text style={styles.buttontextinout}> Sign Out </Text>
             </TouchableOpacity>

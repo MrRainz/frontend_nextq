@@ -5,9 +5,10 @@ import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, StatusBar}
 
 export default function onCamera({navigation}) {
 
-  const [scanned, setScanned] = useState(false);
-  const [hasPermission, setHasPermission] = useState(null);
-  const [flashtype, flashsetType] = useState(Camera.Constants.FlashMode.off);
+  // Camera QR code example @ https://docs.expo.io/versions/latest/sdk/camera/
+  const [scanned, setScanned] = useState(false); // QR Scan @ <Camera> onBarCodeScanned 
+  const [hasPermission, setHasPermission] = useState(null); // Permission to allow use of camera from device 
+  const [flashtype, flashsetType] = useState(Camera.Constants.FlashMode.off); // Allow flashing @ <Camera> flashMode
 
   useEffect(() => {
     (async () => {

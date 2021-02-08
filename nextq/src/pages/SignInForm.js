@@ -5,17 +5,23 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
 import { StyleSheet, Text, SafeAreaView, View, TextInput, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
+// Toastify if import unable to start expo web browser
 // import Toast from 'react-native-root-toast';
 
 export default function Signin({navigation}) {
+    
+    // Pass states from setAllState @ App.js using Context & Memo.
+    const { setLoggedTrue, loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
+    
     // NEED TO REDO TO SUIT OUR APP
     const [username, setusername]= useState("")
     const [password, setpassword]= useState("")
-    const [passwordView, setpasswordView]= useState(true)
 
-    const { setLoggedTrue, loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
+    // Display or Hide Password Input
+    // To change state of password secure mode true / false @ <TextInput> secureTextEntry
+    const [passwordView, setpasswordView]= useState(true) 
 
-    //Testing Sign in API
+    // Sign In function
     const handleSignIn = () => {
         setLoadingTrue()
         axios({
@@ -30,7 +36,8 @@ export default function Signin({navigation}) {
             console.log(result)
             console.log("Success")
             console.log(result.data.auth_token)
-            const userID = JSON.stringify(result.data.user.id) // Async just allow to set item with string - This to convert number into string.
+            // Async just allow to set item with string - This to convert number into string.
+            const userID = JSON.stringify(result.data.user.id) 
             AsyncStorage.multiSet([['jwt', result.data.auth_token], ['userID', userID ]])
             setLoadingFalse()
             setLoggedTrue()

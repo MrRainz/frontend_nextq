@@ -7,8 +7,9 @@ import { HomeStackNavigator, ProfileStackNavigator, CheckInStackNavigator, ShopS
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomNavigator = () => {
-
-  const { loggedIn } = useContext(Auth);
+  
+  // Pass states from setAllState @ App.js using Context & Memo.
+  const { loggedIn } = useContext(Auth); 
 
   return (
     <Tab.Navigator initialRouteName="Scan" barStyle={{ backgroundColor: 'lightgrey' }} screenOptions={({ route }) => ({

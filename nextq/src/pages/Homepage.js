@@ -5,7 +5,8 @@ import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, StatusBa
 
 export default function Homepage({navigation}) {
 
-  const { loggedIn } = useContext(Auth);
+  // Pass states from setAllState @ App.js using Context & Memo.
+  const { loggedIn } = useContext(Auth); 
   
   return (
     <SafeAreaView style={styles.safecontainer}>
