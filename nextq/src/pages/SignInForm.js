@@ -3,7 +3,7 @@ import { Auth } from '../components/context.js';
 import React, { useState, useContext } from 'react';
 import { AntDesign, FontAwesome } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-community/async-storage';
-import { StyleSheet, Text, SafeAreaView, View, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, TextInput, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard, RefreshControlBase } from 'react-native';
 
 // import Toast from 'react-native-root-toast';
 
@@ -12,10 +12,11 @@ export default function Signin({navigation}) {
     const [username, setusername]= useState("")
     const [password, setpassword]= useState("")
 
-    const { setTrue } = useContext(Auth);
+    const { setLoggedTrue, loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
 
     //Testing Sign in API
     const handleSignIn = () => {
+        setLoadingTrue()
         axios({
           method: 'POST',
           url: 'https://insta.nextacademy.com/api/v1/login',
@@ -30,7 +31,8 @@ export default function Signin({navigation}) {
             const jwt = result.data.auth_token
             console.log(jwt)
             AsyncStorage.setItem('jwt', result.data.auth_token)
-            setTrue()
+            setLoadingFalse()
+            setLoggedTrue()
             // navigation.navigate('Profile')
             // Toast.show('Successfully sign in!', {
             //     duration: Toast.durations.LONG,
@@ -45,6 +47,7 @@ export default function Signin({navigation}) {
         })
         .catch(error => {
             console.log("Error:" ,error)
+            setLoadingFalse()
             // Toast.show(`${error}`, {
             //     duration: Toast.durations.LONG,
             //     position: 90,
@@ -80,13 +83,19 @@ export default function Signin({navigation}) {
                             <View style={styles.textinputicon}>
                                 <AntDesign name="lock" size={18} color="black"/>
                             </View>
-                            <TextInput secureTextEntry={true} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" style={styles.textinputflex} onChangeText={text => setpassword(text)}/>
+                            <TextInput returnKeyType="send" secureTextEntry={true} clearButtonMode='while-editing' textContentType="password" name="password" id="password" placeholder="Password" style={styles.textinputflex} onChangeText={text => setpassword(text)} onSubmitEditing={handleSignIn}/>
                         </View>
                     </View >
+                    { 
+                    loading 
+                    ?
+                    <ActivityIndicator animating={true} size='small' color='black' style={styles.button}/>
+                    :
                     <TouchableOpacity style={styles.button} onPress={handleSignIn}>
                         <FontAwesome name="sign-in" size={24} color="black"/>
                         <Text style={styles.buttontext}> Sign In </Text>
                     </TouchableOpacity>
+                    }
                     <View style={styles.signup} >
                         <Text>Dont have an account?</Text>
                         <TouchableOpacity onPress={() => navigation.navigate("Sign Up")}>

@@ -3,17 +3,19 @@ import { Card } from 'react-native-elements';
 import { Auth } from '../components/context.js';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-community/async-storage';
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 // import Toast from 'react-native-root-toast';
 
 export default function Profilepage({navigation}) {
 
-  const { loggedIn, setFalse } = useContext(Auth);
+  const { loggedIn, setLoggedFalse, loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
 
   const handleLogout = () => {
+    setLoadingTrue()
     AsyncStorage.removeItem('jwt')
-    setFalse()
+    setLoadingFalse()
+    setLoggedFalse()
     // Toast.show('Successfully sign out!', {
     //   duration: Toast.durations.LONG,
     //   position: 90,
@@ -52,29 +54,37 @@ export default function Profilepage({navigation}) {
             </View>
           </View>
           <View style={styles.signoutplacement}>
+            { 
+            loading
+            ?                     
+            <ActivityIndicator animating={true} size='small' color='black' style={styles.button}/>
+            :
             <TouchableOpacity style={styles.button} onPress={handleLogout} >
               <FontAwesome name="sign-out" size={24} color="black" />
               <Text style={styles.buttontextinout}> Sign Out </Text>
             </TouchableOpacity>
+            }
           </View>
         </Card>
       </View>
       :
-      <View style={styles.notificationContainer}>
-        <Text style={styles.notificationText}>Welcome back !</Text>
-        <Text style={styles.notificationBodyText}>Please sign in to your account </Text>
-        <View style={styles.buttonplacement}>
-          <TouchableOpacity style={styles.button} title="Sign Up" //Need to move to new page
-            onPress={() => navigation.navigate("Sign Up")}>
-              <AntDesign name="adduser" size={24} color="black"/>
-              <Text style={styles.buttontextinout}> Sign Up </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} title="Sign Up" //Need to move to new page
-            onPress={() => navigation.navigate("Sign In")}>
-              <FontAwesome name="sign-in" size={24} color="black"/>
-              <Text style={styles.buttontextinout}> Sign In </Text>
-          </TouchableOpacity>
-        </View> 
+      <View style={styles.container}>
+        <View style={styles.notificationContainer}>
+          <Text style={styles.notificationText}>Welcome back !</Text>
+          <Text style={styles.notificationBodyText}>Please sign in to your account </Text>
+          <View style={styles.buttonplacement}>
+            <TouchableOpacity style={styles.button} title="Sign Up" //Need to move to new page
+              onPress={() => navigation.navigate("Sign Up")}>
+                <AntDesign name="adduser" size={24} color="black"/>
+                <Text style={styles.buttontextinout}> Sign Up </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} title="Sign Up" //Need to move to new page
+              onPress={() => navigation.navigate("Sign In")}>
+                <FontAwesome name="sign-in" size={24} color="black"/>
+                <Text style={styles.buttontextinout}> Sign In </Text>
+            </TouchableOpacity>
+          </View> 
+        </View>
       </View>
       } 
     </SafeAreaView> 

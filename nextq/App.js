@@ -11,6 +11,7 @@ import { SignInStackNavigator } from './src/Navigator/StackNavigator.js';
 export default function App() {
   
   const [loggedIn, setLoggedIn] = useState()
+  const [loading, setLoading] = useState(false)
   
   AsyncStorage.getItem('jwt').then((result) => {
     if (result == null) {
@@ -21,23 +22,33 @@ export default function App() {
     }
   })
 
-  const setLoggedState = useMemo(()=> ({
+  const setAllState = useMemo(()=> ({
     loggedIn,
-    setFalse: () => {
+    setLoggedFalse: () => {
       setLoggedIn(false)
     },
-    setTrue: () => {
+    setLoggedTrue: () => {
       setLoggedIn(true)
+    },
+    loading,
+    setLoadingFalse: () => {
+      setLoading(false)
+    },
+    setLoadingTrue: () => {
+      setLoading(true)
     }
   }));
 
   return (
-    <Auth.Provider value={setLoggedState}>
+    <Auth.Provider value={setAllState}>
       {/* <RootSiblingParent> */}
         <NavigationContainer>
-          {loggedIn ?
+          {loggedIn 
+          ?
           <BottomNavigator/>
-          :<SignInStackNavigator/>}
+          :
+          <SignInStackNavigator/>
+          }
         </NavigationContainer>
       {/* </RootSiblingParent> */}
     </Auth.Provider>

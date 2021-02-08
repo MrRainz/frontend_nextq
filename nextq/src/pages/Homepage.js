@@ -6,7 +6,7 @@ import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'r
 export default function Homepage({navigation}) {
 
   const { loggedIn } = useContext(Auth);
-
+  
   return (
     <SafeAreaView style={styles.safecontainer}>
       <View style={styles.container}>

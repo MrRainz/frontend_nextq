@@ -1,7 +1,8 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { Auth } from '../components/context.js';
+import React, { useState, useContext } from 'react';
 import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons'; 
-import { StyleSheet, Text, View, SafeAreaView, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 // import Toast from 'react-native-root-toast';
 
@@ -12,8 +13,11 @@ export default function Signup({navigation}) {
     const [email,setemail]=useState("")
     const [mobile,setmobile]=useState("")
 
+    const { loading, setLoadingFalse, setLoadingTrue } = useContext(Auth);
+
     // Testing Sign Up Api
-    const handleSignUp = () => {    
+    const handleSignUp = () => { 
+        setLoadingTrue()   
         axios({
             method: 'POST',
             url: 'https://insta.nextacademy.com/api/v1/users/',
@@ -26,6 +30,7 @@ export default function Signup({navigation}) {
         .then(result => {
             console.log(result)
             console.log("Success")
+            setLoadingFalse()
             navigation.navigate("Sign In")
             // Toast.show('Successfully sign up!', {
             //     duration: Toast.durations.LONG,
@@ -40,6 +45,7 @@ export default function Signup({navigation}) {
         })
         .catch(error => {
             console.log("Error:" ,error)
+            setLoadingFalse()
             // Toast.show(`${error}`, {
             //     duration: Toast.durations.LONG,
             //     position: 90,
@@ -93,13 +99,19 @@ export default function Signup({navigation}) {
                             <View style={styles.textinputicon}>
                                 <FontAwesome name="mobile" size={18} color="black"/>
                             </View>
-                            <TextInput clearButtonMode='while-editing' textContentType="telephoneNumber" name="mobile" id="mobile" placeholder="Mobile" value={mobile} style={styles.textinputflex} onChangeText={text => setmobile(text)}/>
+                            <TextInput returnKeyType="send" clearButtonMode='while-editing' textContentType="telephoneNumber" name="mobile" id="mobile" placeholder="Mobile" value={mobile} style={styles.textinputflex} onChangeText={text => setmobile(text)} onSubmitEditing={handleSignUp}/>
                         </View>
                     </View>
+                    { 
+                    loading 
+                    ?
+                    <ActivityIndicator animating={true} size='small' color='black' style={styles.button}/>
+                    :
                     <TouchableOpacity style={styles.button} onPress={handleSignUp}>
                         <AntDesign name="adduser" size={24} color="black"/>
                         <Text style={styles.buttontext}> Sign Up </Text>
                     </TouchableOpacity>
+                    }
                     <View style={styles.signin} >
                         <Text> Exisiting user? </Text>
                         <TouchableOpacity onPress={() => navigation.navigate('Sign In')}>
