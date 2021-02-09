@@ -16,7 +16,7 @@ export default function Profilepage({navigation}) {
   // Remove store userData
   const removeuserData = async() => {
     try {
-      await AsyncStorage.multiRemove(['jwt', 'userID', 'mobile', 'name']) ;
+      await AsyncStorage.multiRemove(['jwt', 'userID', 'mobile', 'name','store']) ;
     } catch (error) {
       console.log('AsyncStorage error: ' + error.message);
     }
@@ -45,8 +45,7 @@ export default function Profilepage({navigation}) {
   return (
     <SafeAreaView style={styles.safecontainer}>
     <StatusBar barStyle='dark-content'/>
-      { 
-      loggedIn
+      { loggedIn
       ?
       <View style={styles.container}>
         <View style={styles.topContainer}>
@@ -54,23 +53,21 @@ export default function Profilepage({navigation}) {
               <View style={styles.profileImage}>
                 <Image source={require('../Images/pepega.png')} style={styles.image} resizeMode="center"></Image>
               </View>
-              <View style={styles.username}>
-                <Text style={styles.usernameText}> {userName}</Text>
-              </View>
             </View>
         </View>
         <Card containerStyle={styles.CardBottomContainer}>
           <View style={styles.buttoncontainer}>
-            <View style={styles.email}>
-              <Text style={styles.text}>Email</Text>
+            <View style={styles.username}>
+              <FontAwesome name="user-o" size={18} color="black"/>
+              <Text style={styles.text}> {userName}</Text>
             </View>
             <View style={styles.phonenumber}>
+              <FontAwesome name="mobile" size={18} color="black"/>
               <Text style={styles.text}> {userMobile} </Text>
             </View>
           </View>
           <View style={styles.signoutplacement}>
-            { 
-            loading
+            { loading
             ?                     
             <ActivityIndicator animating={true} size='small' color='black' style={styles.button}/>
             :
@@ -142,26 +139,6 @@ const styles=StyleSheet.create({
     backgroundColor: "#C4C4C4",
     margin:5,
   },
-  username: {
-    margin:5,
-    flex:1,
-    width:'80%',
-    borderRadius:20,
-    justifyContent: "center",
-    backgroundColor:'#F18606',
-    alignItems: "center",
-    shadowOffset: {
-      width: 5,
-      height: 5
-    },
-    shadowRadius: 6,
-    shadowOpacity: 0.2
-  },
-  usernameText: {
-    color: "white",
-    fontFamily: "Helvetica",
-    fontSize:18,
-  },
   CardBottomContainer: {
     justifyContent:'center',
     width: "80%",
@@ -180,22 +157,29 @@ const styles=StyleSheet.create({
     height:"80%",
     alignItems:'center'
   },
-  email: {
-    height:50,
-    width:"60%",
-    borderRadius: 20,
+  username: {
+    flexDirection:'row',
     margin:5,
-    backgroundColor:"#F18606",
+    height:50,
+    width:'60%',
+    borderRadius:20,
     justifyContent: "center",
+    backgroundColor:'#F18606',
     alignItems: "center",
     shadowOffset: {
       width: 5,
       height: 5
     },
     shadowRadius: 6,
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.2
+  },
+  text: {
+    color: "white",
+    fontFamily: "Helvetica",
+    fontSize:18,
   },
   phonenumber: {
+    flexDirection:'row',
     height:50,
     width:"60%",
     borderRadius: 20,

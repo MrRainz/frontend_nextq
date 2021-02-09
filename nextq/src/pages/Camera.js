@@ -3,12 +3,32 @@ import { Camera } from 'expo-camera';
 import { Entypo } from '@expo/vector-icons';
 import { Auth } from '../components/context.js';
 import React, { useState, useEffect, useContext } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, StatusBar} from 'react-native';
 
 export default function onCamera({navigation}) {
 
   // Pass states from setAllState @ App.js using Context & Memo.
   const { jwt, userID } = useContext(Auth);
+  
+  // Store check in data
+  const storeCheckInStore = async (storeData) => {
+    try {
+      // The keyword await makes JavaScript wait until that promise settles and returns its result.
+      await AsyncStorage.setItem('store', storeData);
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  // Checkout
+  const removeCheckInData = async() => {
+    try {
+      await AsyncStorage.removeItem('store') ;
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
   
   // Camera QR code example @ https://docs.expo.io/versions/latest/sdk/camera/
   const [scanned, setScanned] = useState(false); // QR Scan @ <Camera> onBarCodeScanned 
@@ -33,10 +53,24 @@ export default function onCamera({navigation}) {
       }
     })
     .then(result => {
-      console.log(result)
+      console.log(result.data)
+      if (Object.keys(result.data).length == 1) {
+        alert("User is not checked out from previous store! \n Please checkout from the previous store!")
+      } else if (Object.keys(result.data).length == 4) {
+        storeCheckInStore(result.data.store)
+        console.log(result.data.store)
+        navigation.navigate('Scan')
+        alert("Checked In")
+      } else {
+        removeCheckInData()
+        navigation.navigate('Scan')
+        alert("Checked Out!")
+      }
+        
+      
     })
     .catch(error => {
-      alert(`Error Invalid QR code!`);
+      alert("Error Invalid QR code");
       console.log("Error:" ,error)
     }) 
   };
@@ -62,12 +96,18 @@ export default function onCamera({navigation}) {
               </TouchableOpacity> }
             </View>
             <View style={styles.cameraqr} >
-              <TouchableOpacity onPress={() => setScanned(false)}>
-                <Image
+              { scanned 
+              ? <TouchableOpacity onPress={() => setScanned(false)}>
+                  <Image
+                    style={styles.qr}
+                    source={require('../Images/qr4.png')}
+                  />
+                </TouchableOpacity>
+              : <Image
                   style={styles.qr}
                   source={require('../Images/qr4.png')}
                 />
-              </TouchableOpacity>
+              }
             </View>
             <View style={styles.cameratext}>
               <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>

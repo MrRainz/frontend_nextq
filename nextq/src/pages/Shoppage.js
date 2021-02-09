@@ -11,7 +11,6 @@ export default function Shoppage() {
   React.useEffect(() => {    
     axios.get(`https://nextq.herokuapp.com/api/v1/stores/all`)
     .then (result => {
-    console.log(result)
     setshops([...result.data])
     })
     .catch (error => {
@@ -30,7 +29,6 @@ export default function Shoppage() {
     setRefreshing(true);
     axios.get(`https://nextq.herokuapp.com/api/v1/stores/all`)
     .then (result => {
-    console.log(result)
     setshops([...result.data])
     })
     .catch (error => {
@@ -63,8 +61,7 @@ export default function Shoppage() {
           <View style={styles.map}>
             <View style={styles.search}>
               <FontAwesome name="search" size={24} color="black" style={styles.icon}  />
-              { 
-              isEnabled
+              { isEnabled
               ? 
               <TextInput clearButtonMode='while-editing' style={styles.textinput} value={filterdata} placeholder="Search by location" onChangeText={text => setfilterdata(text)}/>
               :
@@ -72,10 +69,10 @@ export default function Shoppage() {
               }
               <Switch onValueChange={toggleSwitch} value={isEnabled}/>
             </View>
-            <ScrollView contentContainerStyle={{alignItems:'center'}}>
-            { 
-            isEnabled
-            ? filterlocation.map(shop => (    
+              <ScrollView contentContainerStyle={{alignItems:'center'}}>
+              { isEnabled
+              ? 
+              filterlocation.map(shop => (    
                 <View key={shop.id} style={styles.shopcard}>
                   <View style={styles.shopimageplacement}>
                     <Image style={styles.shopimage} source={{uri:shop.image}}/>
@@ -106,7 +103,8 @@ export default function Shoppage() {
                   </View>
                 </View>
               ))
-            : filtername.map(shop => (    
+              : 
+              filtername.map(shop => (    
                 <View key={shop.id} style={styles.shopcard}>
                   <View style={styles.shopimageplacement}>
                     <Image style={styles.shopimage} source={{uri:shop.image}}/>
@@ -137,7 +135,7 @@ export default function Shoppage() {
                   </View>
                 </View>
               ))
-            }
+              }
             </ScrollView>
           </View>
         </View>

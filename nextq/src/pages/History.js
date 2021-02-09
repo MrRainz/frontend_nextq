@@ -21,8 +21,8 @@ export default function History() {
       }
     })
     .then (result => {
-    console.log(result)
-    sethistory([...result.data])
+    const reversedata = result.data.reverse()
+    sethistory([...reversedata])
     })
     .catch (error => {
       console.log('ERROR: ',error)
@@ -45,8 +45,8 @@ export default function History() {
       }
     })
     .then (result => {
-    console.log(result)
-    sethistory([...result.data])
+    const reversedata = result.data.reverse()
+    sethistory([...reversedata])
     })
     .catch (error => {
       console.log('ERROR: ',error)
@@ -57,13 +57,6 @@ export default function History() {
   return (
     <SafeAreaView style={styles.safecontainer}>
       <StatusBar barStyle='dark-content'/>
-      {/* <ScrollView style={{height:"100%"}} 
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />}
-      > */}
       <View style={styles.container}>
         <ScrollView 
           refreshControl={
@@ -100,7 +93,6 @@ export default function History() {
           ))}
         </ScrollView>
       </View>
-      {/* </ScrollView> */}
     </SafeAreaView>
   );
 }

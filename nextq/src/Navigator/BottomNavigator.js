@@ -60,10 +60,11 @@ const BottomNavigator = () => {
       <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="Shops" component={ShopStackNavigator}/>
       <Tab.Screen name="Scan" component={CheckInStackNavigator}/>
-      { 
-      loggedIn 
-      ? <Tab.Screen name="History" component={HistoryStackNavigator}/> 
-      : null
+      { loggedIn 
+      ? 
+      <Tab.Screen name="History" component={HistoryStackNavigator}/> 
+      : 
+      null
       }
       <Tab.Screen name="Profile" component={ProfileStackNavigator}/>
     </Tab.Navigator>
