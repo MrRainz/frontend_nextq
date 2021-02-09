@@ -1,28 +1,88 @@
-import React, { useContext } from 'react';
-import { Card } from 'react-native-elements'
+import axios from 'axios';
+import { Card } from 'react-native-elements';
 import { Auth } from '../components/context.js';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, StatusBar } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import { MaterialCommunityIcons, Ionicons, FontAwesome } from '@expo/vector-icons';
+import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, StatusBar, ScrollView, RefreshControl } from 'react-native';
 
 export default function Checkin({navigation}) {
 
   // Pass states from setAllState @ App.js using Context & Memo.
-  const { loggedIn } = useContext(Auth); 
+  const { loggedIn, userID } = useContext(Auth); 
+
+  // Queue number
+  const [ queue, setqueue ] = useState("")
+
+  useEffect(() => {    
+    const getQ = async() => {
+      const id = await AsyncStorage.getItem('userID');
+      axios.get(`https://nextq.herokuapp.com/api/v1/queue/${id}`)
+      .then (result => {
+        console.log(result.data)
+        setqueue(result.data.queue_number)
+      })
+      .catch (error => {
+        console.log('ERROR: ',error)
+      })
+    }
+    getQ();
+  },[])
+
+  // Refreshing extract from react native doc @ RefreshControl https://reactnative.dev/docs/refreshcontrol
+  const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    axios.get(`https://nextq.herokuapp.com/api/v1/queue/${userID}`)
+    .then (result => {
+      console.log(result.data)
+      setqueue(result.data.queue_number)
+    })
+    .catch (error => {
+      console.log('ERROR: ',error)
+    })
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   return (
     <SafeAreaView style={styles.safecontainer}>
       <StatusBar barStyle='dark-content'/>
+      <ScrollView contentContainerStyle={styles.refresh}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
       <View style={styles.container}>
         <Card containerStyle={styles.card}>
           { 
           loggedIn 
           ? <View style={styles.cardtext}>
-              <Text style={styles.user}>
-                User
+              { queue == "0"
+              ? 
+              <Text style={styles.queue}>
+                <FontAwesome name="user" size={30} color="black">: {queue} </FontAwesome>
+                {"\n"}
+                It's your turn!
+                {"\n"}
+                Please go ahead to your favourite store!
               </Text>
-              <Text style={styles.mobile}>
-                Mobile:123123
+              : 
+              <Text style={styles.queue}>
+                <FontAwesome name="user" size={30} color="black">: {queue} </FontAwesome>
+                {"\n"}
+                There are {queue} person ahead of you!
+                {"\n"}
+                Please be patient!
               </Text>
+              }
             </View>
           : <View style={styles.cardtext}> 
               <Text style={styles.welcometext}>
@@ -53,6 +113,7 @@ export default function Checkin({navigation}) {
           </TouchableOpacity> 
         }
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -60,7 +121,11 @@ export default function Checkin({navigation}) {
 const styles = StyleSheet.create({
   safecontainer: {
     flex:1,
-    backgroundColor:'black'
+    backgroundColor:'#fff'
+  },
+  refresh: {
+    flex:1,
+    backgroundColor: '#fff',
   },
   container: {
     flex:1,
@@ -86,12 +151,8 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     width:'100%', 
   },
-  user: {
+  queue: {
     fontSize:20,
-    textAlign:'center',
-  },
-  mobile: {
-    fontSize:16,
     textAlign:'center',
   },
   welcometext: {

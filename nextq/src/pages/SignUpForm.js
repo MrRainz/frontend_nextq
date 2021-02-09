@@ -37,7 +37,7 @@ export default function Signup({navigation}) {
         })
         .then(result => {
             console.log(result)
-            console.log("Success")
+            console.log("Successfully signed up!")
             setLoadingFalse()
             navigation.navigate("Sign In")
             // Toast.show('Successfully sign up!', {

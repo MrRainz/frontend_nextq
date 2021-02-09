@@ -1,10 +1,15 @@
+import axios from 'axios';
 import { Camera } from 'expo-camera';
 import { Entypo } from '@expo/vector-icons';
-import React, { useState, useEffect } from 'react';
+import { Auth } from '../components/context.js';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions, Image, StatusBar} from 'react-native';
 
 export default function onCamera({navigation}) {
 
+  // Pass states from setAllState @ App.js using Context & Memo.
+  const { jwt, userID } = useContext(Auth);
+  
   // Camera QR code example @ https://docs.expo.io/versions/latest/sdk/camera/
   const [scanned, setScanned] = useState(false); // QR Scan @ <Camera> onBarCodeScanned 
   const [hasPermission, setHasPermission] = useState(null); // Permission to allow use of camera from device 
@@ -17,9 +22,23 @@ export default function onCamera({navigation}) {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    alert(`QR code has been scanned!`);
+    axios.post(`https://nextq.herokuapp.com/api/v1/history/${userID}/user/${data}`,
+    { "Hello" : "World"},
+    {
+      headers: {
+        "Authorization" : "Bearer " + jwt
+      }
+    })
+    .then(result => {
+      console.log(result)
+    })
+    .catch(error => {
+      alert(`Error Invalid QR code!`);
+      console.log("Error:" ,error)
+    }) 
   };
 
   if (hasPermission === null) {

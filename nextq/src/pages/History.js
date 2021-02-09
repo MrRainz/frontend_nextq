@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { Card } from 'react-native-elements';
 import { Auth } from '../components/context.js';
-import React, { useState, useEffect, useContext } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
 import { Entypo, Ionicons } from '@expo/vector-icons';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, Text, SafeAreaView, View, ScrollView, StatusBar, RefreshControl } from 'react-native';
 
 export default function History() {
@@ -14,21 +13,21 @@ export default function History() {
   // History
   const [history, sethistory] = useState([])
   
-  // useEffect(() => {    
-  //   axios.get(`https://nextq.herokuapp.com/api/v1/history/${userID}/user/all`,
-  //   {
-  //     headers: {
-  //       "Authorization" : "Bearer " + jwt
-  //     }
-  //   })
-  //   .then (result => {
-  //   console.log(result)
-  //   sethistory([...result.data])
-  //   })
-  //   .catch (error => {
-  //     console.log('ERROR: ',error)
-  //   })
-  // },[])
+  useEffect(() => {    
+    axios.get(`https://nextq.herokuapp.com/api/v1/history/${userID}/user/all`,
+    {
+      headers: {
+        "Authorization" : "Bearer " + jwt
+      }
+    })
+    .then (result => {
+    console.log(result)
+    sethistory([...result.data])
+    })
+    .catch (error => {
+      console.log('ERROR: ',error)
+    })
+  },[])
 
   // Refreshing extract from react native doc @ RefreshControl https://reactnative.dev/docs/refreshcontrol
   const wait = (timeout) => {
@@ -75,7 +74,7 @@ export default function History() {
           }
         >
           { history.map(historydata => (
-            <Card containerStyle={styles.card}>
+            <Card containerStyle={styles.card} key={historydata.id}>
               <View style={styles.cardcont}>
                 <Entypo name="location" size={35} color="black" style={{margin:2}}/>
               <View style={styles.cardtext}>
@@ -116,7 +115,7 @@ const styles= StyleSheet.create({
     backgroundColor: 'white',
   },
   card: {
-    height:100,
+    height:120,
     justifyContent:'center',
     borderRadius:25,
     borderWidth:0.25,

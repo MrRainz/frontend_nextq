@@ -20,12 +20,12 @@ export default function Signin({navigation}) {
     // Display or Hide Password Input ( true / false @ <TextInput> secureTextEntry )
     const [passwordView, setpasswordView]= useState(true) 
 
-    // storeJWT_userID function
-    const storeJWT_userID = async (valueJWT, valueID) => {
+    // storeUserData function
+    const storeUserData = async (valueMobile, valueName,  valueJWT, valueID) => {
         try {
             // The keyword await makes JavaScript wait until that promise settles and returns its result.
             await AsyncStorage.multiSet(
-                [['jwt',valueJWT],['userID',valueID]]
+                [['mobile',valueMobile], ['name', valueName], ['jwt',valueJWT], ['userID',valueID]]
             );
         } catch (error) {
           console.log('AsyncStorage error: ' + error.message);
@@ -44,12 +44,11 @@ export default function Signin({navigation}) {
           }
         })
         .then(result => {
-            console.log(result)
-            console.log("Success")
-            console.log(result.data.token)
+            console.log(result.data)
+            console.log("Successfully signed in!")
             // Async just allow to set item with string - This to convert number into string.
             const userID = JSON.stringify(result.data.user_id)
-            storeJWT_userID(result.data.token,userID)
+            storeUserData(result.data.mobile, result.data.name, result.data.token, userID)
             setLoadingFalse()
             setLoggedTrue()
             // navigation.navigate('Profile')

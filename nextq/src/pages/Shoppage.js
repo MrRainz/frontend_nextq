@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as React from 'react';
 import { Entypo, FontAwesome } from '@expo/vector-icons'; 
 import { Text, View, SafeAreaView, ScrollView, StyleSheet, Image, TextInput, Switch, StatusBar, RefreshControl } from 'react-native';
@@ -5,66 +6,18 @@ import { Text, View, SafeAreaView, ScrollView, StyleSheet, Image, TextInput, Swi
 export default function Shoppage() {
   
   // Shops
-  const [shops, setshops] = React.useState([
-    {
-      id:1,
-      customer_limit: 5,
-      headcount: 20,
-      location: "OneU",
-      name: "Nike",
-      queue:1,
-      image:'https://maps.abuzzinteractive.net/klcc/api/v1.30/abuzz/media/storeinfoLogo/dest_1378.png'
-    },
-    {
-      id:2,
-      customer_limit: 100,
-      headcount: 50,
-      location: "KLCC",
-      name: "Adidas",
-      queue:1,
-      image: 'https://maps.abuzzinteractive.net/klcc/api/v1.30/abuzz/media/storeinfoLogo/dest_1378.png'
-    },
-    {
-      id:3,
-      customer_limit: 5,
-      headcount: 3,
-      location: "KLCC",
-      name: "NewB",
-      queue:3,
-      image: 'https://maps.abuzzinteractive.net/klcc/api/v1.30/abuzz/media/storeinfoLogo/dest_1378.png'
-    },
-    {
-      id:4,
-      customer_limit: 5,
-      headcount: 3,
-      location: "OneU",
-      name: "Converse",
-      queue:4,
-      image: 'https://maps.abuzzinteractive.net/klcc/api/v1.30/abuzz/media/storeinfoLogo/dest_1378.png'
-    },
-    {
-      id:5,
-      customer_limit: 5,
-      headcount: 3,
-      location: "OneU",
-      name: "Converse",
-      queue:4,
-      image: 'https://maps.abuzzinteractive.net/klcc/api/v1.30/abuzz/media/storeinfoLogo/dest_1378.png'
-    },
-    {
-      id:6,
-      customer_limit: 5,
-      headcount: 3,
-      location: "OneU",
-      name: "Converse",
-      queue:4,
-      image: 'https://maps.abuzzinteractive.net/klcc/api/v1.30/abuzz/media/storeinfoLogo/dest_1378.png'
-    },
-  ])
-  
-  // Switch button
-  const [isEnabled, setIsEnabled] = React.useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState); 
+  const [shops, setshops] = React.useState([])
+
+  React.useEffect(() => {    
+    axios.get(`https://nextq.herokuapp.com/api/v1/stores/all`)
+    .then (result => {
+    console.log(result)
+    setshops([...result.data])
+    })
+    .catch (error => {
+      console.log('ERROR: ',error)
+    })
+  },[])
   
   // Refreshing extract from react native doc @ RefreshControl https://reactnative.dev/docs/refreshcontrol
   const wait = (timeout) => {
@@ -75,6 +28,14 @@ export default function Shoppage() {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
+    axios.get(`https://nextq.herokuapp.com/api/v1/stores/all`)
+    .then (result => {
+    console.log(result)
+    setshops([...result.data])
+    })
+    .catch (error => {
+      console.log('ERROR: ',error)
+    })
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
@@ -82,6 +43,10 @@ export default function Shoppage() {
   const [filterdata, setfilterdata] = React.useState("")
   const filtername = shops.filter(shop => shop.name.toLowerCase().match(filterdata.toLowerCase()))
   const filterlocation = shops.filter(shop => shop.location.toLowerCase().match(filterdata.toLowerCase()))
+
+  // Switch button
+  const [isEnabled, setIsEnabled] = React.useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState); 
 
   return (
     <SafeAreaView style={styles.safecontainer}>

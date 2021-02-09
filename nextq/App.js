@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import { Auth } from './src/components/context.js';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { BottomNavigator } from './src/Navigator/BottomNavigator.js';
@@ -13,46 +13,44 @@ export default function App() {
   
   const [loggedIn, setLoggedIn] = useState()
   const [loading, setLoading] = useState(false)
-  const [userID, setuserID]= useState()
+  const [userMobile, setuserMobile]= useState("")
+  const [userName, setuserName]= useState("")
+  const [userID, setuserID]= useState("")
   const [jwt, setjwt] = useState()
   
-  // To get jwt token. Act as the same as localstorage in ReactJS
-  const retrieveJWT = async () => {
-    try {
-      // The keyword await makes JavaScript wait until that promise settles and returns its result.
-      const jwt = await AsyncStorage.getItem('jwt');
-      if (jwt == null) {
-        setLoggedIn(false) // if result == null, return loggedIn state to false which indicates user is not loggedIn.
-        setjwt("")
+  // To get jwt token & store userdata. Act as the same as localstorage in ReactJS
+  useEffect(() => {
+    const retrieveJWT = async () => {
+      try {
+        // The keyword await makes JavaScript wait until that promise settles and returns its result.
+        const jwt = await AsyncStorage.getItem('jwt');
+        if (jwt == null) {
+          setLoggedIn(false) // if result == null, return loggedIn state to false which indicates user is not loggedIn.
+          setjwt()
+        }
+        else {
+          setLoggedIn(true)
+          setjwt(jwt)
+          const mobile = await AsyncStorage.getItem('mobile');
+          const name = await AsyncStorage.getItem('name');
+          const id = await AsyncStorage.getItem('userID');
+          if (mobile == null && name == null && id == null) {  
+            setuserMobile(null) 
+            setuserName(null)
+            setuserID(null)
+          }
+          else {
+            setuserMobile(mobile)
+            setuserName(name)
+            setuserID(id)
+          }
+        }
+      } catch (error) {
+        console.log('AsyncStorage error: ' + error.message);
       }
-      else {
-        setLoggedIn(true)
-        setjwt(jwt)
-      }
-    } catch (error) {
-      console.log('AsyncStorage error: ' + error.message);
     }
-  }
-  
-  retrieveJWT()
-
-  // To get userID after login. Act as the same as localstorage in ReactJS.
-  const getUserID = async () => {
-    try {
-      // The keyword await makes JavaScript wait until that promise settles and returns its result.
-      const id = await AsyncStorage.getItem('userID');
-      if (id == null) {  
-        setuserID(null) // if result == null, set result into setID()
-      }
-      else {
-        setuserID(id)
-      }
-    } catch (error) {
-      console.log('AsyncStorage error: ' + error.message);
-    }
-  }
-
-  getUserID()
+    retrieveJWT()
+  })
 
   // Pass states to other js files using useMemo and useContext
   const setAllState = useMemo(()=> ({
@@ -70,8 +68,10 @@ export default function App() {
     setLoadingTrue: () => {
       setLoading(true)
     },
+    jwt,
+    userMobile,
+    userName,
     userID,
-    jwt
   }));
 
   return (

@@ -11,12 +11,12 @@ import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, Activity
 export default function Profilepage({navigation}) {
 
   // Pass states from setAllState @ App.js using Context & Memo.
-  const { loggedIn, setLoggedFalse, loading, setLoadingFalse, setLoadingTrue } = useContext(Auth); 
-  
-  // Remove jwt and userID
-  const removeJWT_userID = async() => {
+  const { loggedIn, setLoggedFalse, loading, setLoadingFalse, setLoadingTrue, userName, userMobile } = useContext(Auth); 
+
+  // Remove store userData
+  const removeuserData = async() => {
     try {
-      await AsyncStorage.multiRemove(['jwt', 'userID']) ;
+      await AsyncStorage.multiRemove(['jwt', 'userID', 'mobile', 'name']) ;
     } catch (error) {
       console.log('AsyncStorage error: ' + error.message);
     }
@@ -26,8 +26,9 @@ export default function Profilepage({navigation}) {
   const handleSignOut = () => {
     setLoadingTrue()
     // Remove both 'jwt' and 'userID' from AsyncStorage. Act as the same as localstorage in ReactJS
-    removeJWT_userID()
+    removeuserData()
     setLoadingFalse()
+    console.log("Succesfully signed out!")
     setLoggedFalse()
     // Toast.show('Successfully sign out!', {
     //   duration: Toast.durations.LONG,
@@ -54,7 +55,7 @@ export default function Profilepage({navigation}) {
                 <Image source={require('../Images/pepega.png')} style={styles.image} resizeMode="center"></Image>
               </View>
               <View style={styles.username}>
-                <Text style={styles.usernameText}>Username</Text>
+                <Text style={styles.usernameText}> {userName}</Text>
               </View>
             </View>
         </View>
@@ -64,7 +65,7 @@ export default function Profilepage({navigation}) {
               <Text style={styles.text}>Email</Text>
             </View>
             <View style={styles.phonenumber}>
-              <Text style={styles.text}>Phone Number</Text>
+              <Text style={styles.text}> {userMobile} </Text>
             </View>
           </View>
           <View style={styles.signoutplacement}>
