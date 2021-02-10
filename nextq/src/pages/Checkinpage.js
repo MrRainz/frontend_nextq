@@ -130,8 +130,8 @@ export default function Checkin({navigation}) {
         .catch (error => {
           console.log('ERROR: ',error)
         })
-      setRefreshing(false)
       }
+      setRefreshing(false)
     });
     return unsubscribe;
   }, [navigation]);
