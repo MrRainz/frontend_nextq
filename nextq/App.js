@@ -7,7 +7,7 @@ import { BottomNavigator } from './src/Navigator/BottomNavigator.js';
 import { SignInStackNavigator } from './src/Navigator/StackNavigator.js';
 
 // Toastify if import unable to start expo web browser
-// import { RootSiblingParent } from 'react-native-root-siblings';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default function App() {
   
@@ -76,7 +76,7 @@ export default function App() {
 
   return (
     <Auth.Provider value={setAllState}>
-      {/* <RootSiblingParent> */}
+      <RootSiblingParent>
         <NavigationContainer>
           {loggedIn 
           ?
@@ -85,7 +85,7 @@ export default function App() {
           <SignInStackNavigator/>
           }
         </NavigationContainer>
-      {/* </RootSiblingParent> */}
+      </RootSiblingParent>
     </Auth.Provider>
   );
 }

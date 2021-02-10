@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, ActivityIndicator, StatusBar } from 'react-native';
 
 // Toastify if import unable to start expo web browser
-// import Toast from 'react-native-root-toast';
+import Toast from 'react-native-root-toast';
 
 export default function Profilepage({navigation}) {
 
@@ -16,7 +16,7 @@ export default function Profilepage({navigation}) {
   // Remove store userData
   const removeuserData = async() => {
     try {
-      await AsyncStorage.multiRemove(['jwt', 'userID', 'mobile', 'name','store']) ;
+      await AsyncStorage.multiRemove(['jwt', 'userID', 'mobile', 'name', 'store', 'checkin' , 'queue']) ;
     } catch (error) {
       console.log('AsyncStorage error: ' + error.message);
     }
@@ -30,16 +30,16 @@ export default function Profilepage({navigation}) {
     setLoadingFalse()
     console.log("Succesfully signed out!")
     setLoggedFalse()
-    // Toast.show('Successfully sign out!', {
-    //   duration: Toast.durations.LONG,
-    //   position: 90,
-    //   textColor: 'black',
-    //   backgroundColor: 'green',
-    //   shadow: true,
-    //   animation: true,
-    //   hideOnPress: true,
-    //   delay: 0,
-    // });
+    Toast.show('Successfully sign out!', {
+      duration: Toast.durations.LONG,
+      position: 90,
+      textColor: 'black',
+      backgroundColor: 'green',
+      shadow: true,
+      animation: true,
+      hideOnPress: true,
+      delay: 0,
+    });
   }
 
   return (

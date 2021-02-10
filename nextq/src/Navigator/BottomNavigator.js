@@ -58,7 +58,7 @@ const BottomNavigator = () => {
       }
     })}> 
       <Tab.Screen name="Home" component={HomeStackNavigator} />
-      <Tab.Screen name="Shops" component={ShopStackNavigator}/>
+      <Tab.Screen name="Shops" component={ShopStackNavigator} />
       <Tab.Screen name="Scan" component={CheckInStackNavigator}/>
       { loggedIn 
       ? 

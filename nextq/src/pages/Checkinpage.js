@@ -14,37 +14,77 @@ export default function Checkin({navigation}) {
   // Checked In status
   const [ checkedIN, setcheckedIN ] = useState()
 
+  // Queue Status
+  const [ queueStatus, setqueueStatus ] = useState()
+
   // Save store name
   const [ storeName, setStoreName ] = useState("")
 
-  // Store check in data  
-  const retrieveCheckInStore = async () => {
+  // Retrieve Store Name 
+  const retrieveStoreName = async () => {
     try {
       // The keyword await makes JavaScript wait until that promise settles and returns its result.
       const store = await AsyncStorage.getItem('store');
       if (store == null) {
         setStoreName("")
-        setcheckedIN(false)
       } else {
         setStoreName(store)
+      }
+    } 
+    catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  // Retrieve queue 
+  const retrieveQueue = async () => {
+    try {
+      // The keyword await makes JavaScript wait until that promise settles and returns its result.
+      const queue = await AsyncStorage.getItem('queue');
+      if (queue == null) {
+        setqueueStatus(false)
+      } else {
+        setqueueStatus(true)
+      }
+    } 
+    catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  // Retrieve check in 
+  const retrieveCheckIn = async () => {
+    try {
+      // The keyword await makes JavaScript wait until that promise settles and returns its result.
+      const checkin = await AsyncStorage.getItem('checkin');
+      if (checkin == null) {
+        setcheckedIN(false)
+      } else {
         setcheckedIN(true)
       }
-    } catch (error) {
+    } 
+    catch (error) {
       console.log('AsyncStorage error: ' + error.message);
-      }
     }
+  }
+  retrieveQueue();
+  retrieveCheckIn();
+  retrieveStoreName();
 
-  retrieveCheckInStore();
-  
   // Queue number
   const [ queue, setqueue ] = useState("")
+
+  // Notification
+  const [ notification, setnotification ] =useState("")
 
   useEffect(() => {    
     const getQ = async() => {
       const id = await AsyncStorage.getItem('userID');
       axios.get(`https://nextq.herokuapp.com/api/v1/queue/${id}`)
       .then (result => {
-        setqueue(result.data)
+        console.log(result)
+        setnotification(result.data.notification)
+        setqueue(result.data.queue_number)
       })
       .catch (error => {
         console.log('ERROR: ',error)
@@ -64,7 +104,9 @@ export default function Checkin({navigation}) {
     setRefreshing(true);
     axios.get(`https://nextq.herokuapp.com/api/v1/queue/${userID}`)
     .then (result => {
-      setqueue(result.data)
+      console.log(result)
+      setnotification(result.data.notification)
+      setqueue(result.data.queue_number)
     })
     .catch (error => {
       console.log('ERROR: ',error)
@@ -95,42 +137,40 @@ export default function Checkin({navigation}) {
       >
         <View style={styles.container}>
           <Card containerStyle={styles.card}>
-            { loggedIn 
-            ? 
+            {/* { loggedIn 
+            ?  */}
             <View style={styles.cardtext}>
               { checkedIN
               ?
               <View>
-                { queue == "0"
+                <Text style={styles.queue}>
+                  <Entypo name="shop" size={30} color="black"> {storeName} </Entypo>
+                  {"\n"}
+                  Please remember to checkout!
+                </Text>
+              </View>
+              :
+              <View>
+                { queueStatus 
                 ? 
                 <Text style={styles.queue}>
                   <Entypo name="shop" size={30} color="black"> {storeName} </Entypo>
                   {"\n"}
                   <FontAwesome name="user" size={30} color="black">: {queue} </FontAwesome>
                   {"\n"}
-                  It's your turn!
-                  {"\n"}
-                  Please go ahead to your favourite store!
+                  <Text style={styles.queue}>
+                    {notification}
+                  </Text>
                 </Text>
                 : 
                 <Text style={styles.queue}>
-                  <Entypo name="shop" size={30} color="black"> {storeName} </Entypo>
-                  {"\n"}
-                  <FontAwesome name="user" size={30} color="black">: {queue} </FontAwesome>
-                  {"\n"}
-                  {queue} number of people ahead of you!
-                  {"\n"}
-                  Please be patient!
+                  Please scan to check into queue!
                 </Text>
                 }
               </View>
-              :
-              <Text style={styles.queue}>
-                Please be scan to check into queue!
-              </Text>
               }
             </View>
-            : 
+            {/* : 
             <View style={styles.cardtext}> 
               <Text style={styles.welcometext}>
                 Welcome back!
@@ -139,7 +179,7 @@ export default function Checkin({navigation}) {
                 Please sign in if you are an exisitng user to enjoy the features
               </Text>
             </View>
-            }
+            } */}
           </Card>
           <View style={styles.qrcode}>
             <MaterialCommunityIcons name="qrcode-scan" size={150} color="black" />

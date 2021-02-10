@@ -5,7 +5,7 @@ import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons';
 import { StyleSheet, Text, View, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 // Toastify if import unable to start expo web browser
-// import Toast from 'react-native-root-toast';
+import Toast from 'react-native-root-toast';
 
 export default function Signup({navigation}) {
     
@@ -40,35 +40,35 @@ export default function Signup({navigation}) {
             console.log("Successfully signed up!")
             setLoadingFalse()
             navigation.navigate("Sign In")
-            // Toast.show('Successfully sign up!', {
-            //     duration: Toast.durations.LONG,
-            //     position: 90,
-            //     textColor: 'black',
-            //     backgroundColor: 'green',
-            //     shadow: true,
-            //     animation: true,
-            //     hideOnPress: true,
-            //     delay: 0,
-            // });
+            Toast.show('Successfully sign up!', {
+                duration: Toast.durations.LONG,
+                position: 90,
+                textColor: 'black',
+                backgroundColor: 'green',
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+            });
         })
         .catch(error => {
             console.log("Error:" ,error)
             setLoadingFalse()
-            // Toast.show(`${error}`, {
-            //     duration: Toast.durations.LONG,
-            //     position: 90,
-            //     textColor: 'black',
-            //     backgroundColor: 'red',
-            //     shadow: true,
-            //     animation: true,
-            //     hideOnPress: true,
-            //     delay: 0,
-            // });
+            Toast.show(`${error}`, {
+                duration: Toast.durations.LONG,
+                position: 90,
+                textColor: 'black',
+                backgroundColor: 'red',
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+            });
         })
     };
 
     return (
-        // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView style={styles.safecontainer}> 
                 <View style={styles.container}>
                     <AntDesign name="adduser" size={24} color="black"> Sign Up </AntDesign>
@@ -138,7 +138,7 @@ export default function Signup({navigation}) {
                     </View>
                 </View>
             </SafeAreaView>
-        // </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
     );
 }
 

@@ -6,7 +6,7 @@ import { AntDesign, FontAwesome, Feather } from '@expo/vector-icons';
 import { StyleSheet, Text, SafeAreaView, View, TextInput, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 // Toastify if import unable to start expo web browser
-// import Toast from 'react-native-root-toast';
+import Toast from 'react-native-root-toast';
 
 export default function Signin({navigation}) {
     
@@ -51,36 +51,35 @@ export default function Signin({navigation}) {
             storeUserData(result.data.mobile, result.data.name, result.data.token, userID)
             setLoadingFalse()
             setLoggedTrue()
-            // navigation.navigate('Profile')
-            // Toast.show('Successfully sign in!', {
-            //     duration: Toast.durations.LONG,
-            //     position: 90,
-            //     textColor: 'black',
-            //     backgroundColor: 'green',
-            //     shadow: true,
-            //     animation: true,
-            //     hideOnPress: true,
-            //     delay: 0,
-            // });
+            Toast.show('Successfully sign in!', {
+                duration: Toast.durations.LONG,
+                position: 90,
+                textColor: 'black',
+                backgroundColor: 'green',
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+            });
         })
         .catch(error => {
             console.log("Error:" ,error)
             setLoadingFalse()
-            // Toast.show(`${error}`, {
-            //     duration: Toast.durations.LONG,
-            //     position: 90,
-            //     textColor: 'black',
-            //     backgroundColor: 'red',
-            //     shadow: true,
-            //     animation: true,
-            //     hideOnPress: true,
-            //     delay: 0,
-            // });
+            Toast.show(`${error}`, {
+                duration: Toast.durations.LONG,
+                position: 90,
+                textColor: 'black',
+                backgroundColor: 'red',
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+            });
         })
     };
 
     return (
-        // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView style={styles.safecontainer}>    
                 <View style={styles.container}>
                     <FontAwesome name="sign-in" size={24} color="black"> Sign In </FontAwesome> 
@@ -132,7 +131,7 @@ export default function Signin({navigation}) {
                     </View>
                 </View>
             </SafeAreaView>
-        // </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
     );
 }
 

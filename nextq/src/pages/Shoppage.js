@@ -7,10 +7,11 @@ export default function Shoppage() {
   
   // Shops
   const [shops, setshops] = React.useState([])
-
+  
   React.useEffect(() => {    
     axios.get(`https://nextq.herokuapp.com/api/v1/stores/all`)
     .then (result => {
+    console.log(result.data)
     setshops([...result.data])
     })
     .catch (error => {
@@ -29,7 +30,9 @@ export default function Shoppage() {
     setRefreshing(true);
     axios.get(`https://nextq.herokuapp.com/api/v1/stores/all`)
     .then (result => {
-    setshops([...result.data])
+    console.log(result.data)
+    const reversedata = result.data.reverse()
+    setshops([...reversedata])
     })
     .catch (error => {
       console.log('ERROR: ',error)
@@ -75,7 +78,7 @@ export default function Shoppage() {
               filterlocation.map(shop => (    
                 <View key={shop.id} style={styles.shopcard}>
                   <View style={styles.shopimageplacement}>
-                    <Image style={styles.shopimage} source={{uri:shop.image}}/>
+                    <Image style={styles.shopimage} source={{uri:shop.image_url}}/>
                   </View>
                   <View style={styles.shoptextplacement}>
                     <View style={styles.shopflex}>
@@ -107,7 +110,7 @@ export default function Shoppage() {
               filtername.map(shop => (    
                 <View key={shop.id} style={styles.shopcard}>
                   <View style={styles.shopimageplacement}>
-                    <Image style={styles.shopimage} source={{uri:shop.image}}/>
+                    <Image style={styles.shopimage} source={{uri:shop.image_url}}/>
                   </View>
                   <View style={styles.shoptextplacement}>
                     <View style={styles.shopflex}>
@@ -190,7 +193,7 @@ const styles = StyleSheet.create({
     justifyContent:'center'
   },
   shopimage: {
-    width: 105,
+    width: 125,
     flex:1,
     borderRadius: 20,
     margin:5,
