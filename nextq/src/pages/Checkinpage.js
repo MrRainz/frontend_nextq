@@ -11,15 +11,15 @@ export default function Checkin({navigation}) {
   // Pass states from setAllState @ App.js using Context & Memo.
   const { loggedIn, userID } = useContext(Auth); 
 
+  // Save store name
+  const [ storeName, setStoreName ] = useState("")
+
   // Checked In status
   const [ checkedIN, setcheckedIN ] = useState()
 
   // Queue Status
   const [ queueStatus, setqueueStatus ] = useState()
-
-  // Save store name
-  const [ storeName, setStoreName ] = useState("")
-
+  
   // Retrieve Store Name 
   const retrieveStoreName = async () => {
     try {
@@ -67,6 +67,8 @@ export default function Checkin({navigation}) {
       console.log('AsyncStorage error: ' + error.message);
     }
   }
+
+  // Retrieve functions
   retrieveQueue();
   retrieveCheckIn();
   retrieveStoreName();
@@ -149,8 +151,8 @@ export default function Checkin({navigation}) {
       >
         <View style={styles.container}>
           <Card containerStyle={styles.card}>
-            {/* { loggedIn 
-            ?  */}
+            { loggedIn 
+            ? 
             <View style={styles.cardtext}>
               { checkedIN
               ?
@@ -182,7 +184,7 @@ export default function Checkin({navigation}) {
               </View>
               }
             </View>
-            {/* : 
+            : 
             <View style={styles.cardtext}> 
               <Text style={styles.welcometext}>
                 Welcome back!
@@ -191,7 +193,7 @@ export default function Checkin({navigation}) {
                 Please sign in if you are an exisitng user to enjoy the features
               </Text>
             </View>
-            } */}
+            } 
           </Card>
           <View style={styles.qrcode}>
             <MaterialCommunityIcons name="qrcode-scan" size={150} color="black" />
