@@ -119,7 +119,19 @@ export default function Checkin({navigation}) {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       setRefreshing(true)
+      // if queueStatus is true whenever return back to checkinpage call the API to get the queue number.
+      if (queueStatus == true) {
+        axios.get(`https://nextq.herokuapp.com/api/v1/queue/${userID}`)
+        .then (result => {
+          console.log(result)
+          setnotification(result.data.notification)
+          setqueue(result.data.queue_number)
+        })
+        .catch (error => {
+          console.log('ERROR: ',error)
+        })
       setRefreshing(false)
+      }
     });
     return unsubscribe;
   }, [navigation]);

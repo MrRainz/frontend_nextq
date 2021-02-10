@@ -97,8 +97,7 @@ export default function onCamera({navigation}) {
           // if you are in the same shop currently
           navigation.navigate('Scan')
           alert("You are already in the shop currently.")
-        } 
-        else {
+        } else {
           // Someone ahead of you, please dont jump queue
           navigation.navigate('Scan')
           alert("Not your turn yet. Please come back later.")
